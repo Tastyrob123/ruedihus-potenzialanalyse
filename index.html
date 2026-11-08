@@ -1,0 +1,472 @@
+<!doctype html>
+<html lang="de-CH">
+<head>
+<meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1"><meta name="robots" content="noindex, nofollow">
+<title>Potenzialanalyse · Landgasthof Ruedihus</title>
+<link rel="icon" href="assets/favicon.svg">
+<link rel="preload" href="assets/fonts/gelasio-700.woff2" as="font" type="font/woff2" crossorigin>
+<style>
+@font-face{font-family:'Gelasio';font-weight:700;font-display:swap;src:url('assets/fonts/gelasio-700.woff2') format('woff2')}
+@font-face{font-family:'Gelasio';font-weight:400;font-display:swap;src:url('assets/fonts/gelasio-400.woff2') format('woff2')}
+@font-face{font-family:'Instrument Sans';font-weight:400 600;font-display:swap;src:url('assets/fonts/InstrumentSans-normal-400_600.woff2') format('woff2')}
+@font-face{font-family:'DM Mono';font-weight:400;font-display:swap;src:url('assets/fonts/DMMono-normal-400.woff2') format('woff2')}
+:root{--russ:#1f1209;--holz:#321f10;--papier:#efe4d3;--blatt:#fbf5ea;--tinte:#2a1a0e;--kerze:#c98543;--licht:#f3cd94;--gold:#b78f51;--rot:#c42e13;
+  --serif:'Gelasio',Georgia,serif;--sans:'Instrument Sans',system-ui,sans-serif;--mono:'DM Mono',ui-monospace,monospace;--rand:clamp(18px,5vw,84px)}
+*{box-sizing:border-box}html{-webkit-text-size-adjust:100%}
+body{margin:0;background:var(--papier);color:var(--tinte);font:400 17px/1.6 var(--sans)}
+img{display:block;max-width:100%;height:auto}
+h1,h2,h3{font-family:var(--serif);font-weight:700;margin:0;text-wrap:balance}
+.k{margin:0 0 10px;font:400 11px/1.4 var(--mono);letter-spacing:.18em;text-transform:uppercase;color:#8a6a3c}
+.k--hell{color:var(--licht)}
+code{font:400 .86em var(--mono);background:rgba(183,143,81,.14);padding:1px 5px;border-radius:5px;overflow-wrap:anywhere}
+.knopf{display:inline-flex;align-items:center;gap:14px;padding:8px 8px 8px 22px;border-radius:999px;text-decoration:none;font:400 11.5px/1 var(--mono);letter-spacing:.16em;text-transform:uppercase;
+  color:var(--blatt);background:linear-gradient(180deg,#4a2f18,var(--holz) 60%,#170d06);box-shadow:inset 0 1px 0 rgba(255,255,255,.16),0 0 0 1px rgba(201,133,67,.38),0 14px 22px -12px rgba(0,0,0,.6)}
+.knopf i{display:grid;place-items:center;width:32px;height:32px;border-radius:50%;color:var(--tinte);background:linear-gradient(180deg,#f8dcaa,var(--licht) 55%,var(--kerze))}
+.knopf svg{width:13px;height:13px;fill:none;stroke:currentColor;stroke-width:1.7}
+.knopf--hell{color:var(--tinte);background:linear-gradient(180deg,#fffaf0,#efe0c6);box-shadow:inset 0 1px 0 #fff,0 0 0 1px rgba(183,143,81,.5),0 12px 20px -12px rgba(60,34,12,.5)}
+.knopf--hell i{color:var(--blatt);background:linear-gradient(180deg,#4a2f18,var(--russ))}
+/* Auftakt */
+.auftakt{position:relative;min-height:min(92svh,860px);display:flex;align-items:flex-end;color:var(--blatt);background:var(--russ);overflow:hidden}
+.auftakt picture,.auftakt picture img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover}
+.auftakt::after{content:"";position:absolute;inset:0;background:linear-gradient(180deg,rgba(23,13,6,.15) 30%,rgba(23,13,6,.86))}
+.auftakt__t{position:relative;z-index:1;padding:0 var(--rand) clamp(40px,6vw,84px);max-width:980px}
+.auftakt h1{font-size:clamp(2.6rem,6.4vw,6rem);line-height:1.02;text-shadow:0 2px 18px rgba(0,0,0,.5)}
+.auftakt h1 em{font-style:normal;color:var(--licht)}
+.auftakt__s{max-width:52ch;margin:18px 0 0;font-size:clamp(1.02rem,1.3vw,1.2rem);color:rgba(251,245,234,.9)}
+.auftakt__z{display:flex;flex-wrap:wrap;gap:8px 18px;margin:24px 0 0;font:400 11px var(--mono);letter-spacing:.16em;text-transform:uppercase;color:var(--licht)}
+.auftakt__z span+span::before{content:"·";margin-right:18px;color:rgba(243,205,148,.6)}
+/* Überblick */
+.kopf{max-width:760px;margin:0 auto clamp(30px,4vw,56px);text-align:center}
+.kopf h2{font-size:clamp(2rem,4vw,3.4rem);line-height:1.08}
+.kopf p:not(.k){margin:16px auto 0;max-width:62ch;color:rgba(42,26,14,.82)}
+.ueber{padding:clamp(70px,9vw,140px) var(--rand) clamp(40px,5vw,70px)}
+.bereiche{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:clamp(12px,1.6vw,22px);max-width:1260px;margin:0 auto}
+.bereich{display:flex;flex-direction:column;gap:8px;padding:clamp(20px,2vw,28px);border-radius:22px;text-decoration:none;color:var(--tinte);background:var(--blatt);
+  box-shadow:inset 0 0 0 1px rgba(183,143,81,.4),0 30px 40px -32px rgba(60,34,12,.5);transition:box-shadow .9s cubic-bezier(.22,1,.36,1)}
+.bereich:hover{box-shadow:inset 0 0 0 1px var(--gold),0 30px 40px -30px rgba(60,34,12,.6)}
+.bereich__n{font:700 clamp(2.6rem,4vw,3.6rem)/.9 var(--serif);color:var(--kerze)}
+.bereich b{font:700 1.3rem/1.2 var(--serif)}
+.bereich span:not(.bereich__n){font-size:.95rem;line-height:1.5;color:rgba(42,26,14,.75)}
+.bereich small{margin-top:auto;padding-top:12px;border-top:1px solid rgba(183,143,81,.3);font:400 10.5px/1.4 var(--mono);letter-spacing:.1em;text-transform:uppercase;color:#8a6a3c}
+.lesen{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:clamp(14px,2vw,28px);max-width:1260px;margin:0 auto clamp(40px,6vw,80px);padding:0 var(--rand)}
+.lesen__z{display:flex;gap:16px;align-items:flex-start}
+.lesen__z b{flex:none;display:grid;place-items:center;width:38px;height:38px;border-radius:50%;font:700 1.1rem var(--serif);color:var(--blatt);background:var(--holz);box-shadow:0 0 0 1px var(--gold)}
+.lesen__z p{margin:0;font-size:.95rem;line-height:1.55;color:rgba(42,26,14,.8)}.lesen__z span{display:block;font:700 1.08rem var(--serif);color:var(--tinte)}
+/* Bereich und Hinweis */
+.rubrik{padding:clamp(60px,8vw,120px) var(--rand);background:var(--russ);color:var(--blatt)}
+.rubrik:nth-of-type(even){background:var(--holz)}
+.rubrik__kopf{max-width:760px;margin:0 auto clamp(40px,5vw,72px);text-align:center}
+.rubrik__z{margin:0;font:700 clamp(2.4rem,4vw,3.4rem)/1 var(--serif);color:var(--kerze)}
+.rubrik__kopf h2{margin-top:8px;font-size:clamp(2.1rem,4.4vw,3.8rem);line-height:1.05}
+.rubrik__kopf p:last-child{margin:14px auto 0;max-width:56ch;color:rgba(251,245,234,.78)}
+.hw{max-width:1260px;margin:0 auto clamp(60px,8vw,120px);display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1.05fr);gap:clamp(24px,3vw,48px) clamp(28px,4vw,64px);
+  padding:clamp(24px,3vw,44px);border-radius:30px;background:var(--blatt);color:var(--tinte);box-shadow:0 0 0 1px rgba(183,143,81,.45),0 50px 70px -50px rgba(0,0,0,.9)}
+.hw:last-child{margin-bottom:0}
+.hw__kopf{grid-column:1;align-self:start}
+.hw__nr{display:flex;align-items:baseline;gap:14px;margin:0 0 12px;font:400 11px var(--mono);letter-spacing:.18em;text-transform:uppercase;color:#8a6a3c}
+.hw__nr span{font:700 2rem/1 var(--serif);letter-spacing:0;color:var(--kerze)}
+.hw h3{font-size:clamp(1.6rem,2.4vw,2.3rem);line-height:1.15}
+.hw__klar{margin:16px 0 0;font-size:1.06rem;color:rgba(42,26,14,.86)}
+.hw__heute{grid-column:2;grid-row:1/3;display:flex;flex-direction:column}.hw__heute .buehne{flex:1 1 auto}
+.hw__info{grid-column:1;display:grid;gap:12px;align-self:start}
+.karte{padding:16px 18px;border-radius:16px;background:#fff;box-shadow:inset 0 0 0 1px rgba(183,143,81,.32)}
+.karte p:not(.k){margin:0;font-size:.98rem;line-height:1.55}
+.karte--beleg{background:#fffdf8}
+.karte ul{margin:0;padding-left:18px;font-size:.95rem;line-height:1.55}.karte li+li{margin-top:6px}
+.quelle{margin-top:10px!important;font:400 10.5px/1.4 var(--mono)!important;letter-spacing:.08em;color:#8a6a3c}
+.buehne{display:flex;justify-content:center;align-items:center;flex-wrap:wrap;gap:clamp(18px,2.4vw,34px);padding:clamp(10px,1.4vw,20px) 0 clamp(20px,2vw,30px);min-height:100%}
+.bl{margin:0;display:flex;flex-direction:column;align-items:center;gap:14px;flex:1 1 0;min-width:0;max-width:290px}
+.bl figcaption{font-size:.86rem;line-height:1.45;text-align:center;color:rgba(42,26,14,.74)}.bl figcaption b{color:var(--tinte);font-weight:600}
+.geraet{position:relative;width:100%;aspect-ratio:827/1719;filter:drop-shadow(0 26px 26px rgba(60,34,12,.22)) drop-shadow(0 6px 8px rgba(60,34,12,.14))}
+.geraet__s{position:absolute;left:3.27%;top:1.69%;width:91.78%;height:96.63%;border-radius:13.5%/6.2%;overflow:hidden;background:#fff}
+.geraet__s img{width:100%;height:100%;object-fit:cover;object-position:50% 0}
+.geraet__g{position:absolute;inset:0;width:100%;height:100%;pointer-events:none}
+.buehne--2 .bl--tel:first-child .geraet{transform:perspective(1700px) rotateY(14deg) rotateX(3deg);transform-origin:100% 50%}
+.buehne--2 .bl--tel:last-child .geraet{transform:perspective(1700px) rotateY(-14deg) rotateX(3deg);transform-origin:0 50%}
+/* Robert 18.10.2026 20:24: einzelne Telefone nicht nach rechts hinten gekippt, sondern wie das linke Telefon bei 01 */
+.buehne--1 .bl--tel .geraet,.so__g .geraet{transform:perspective(1700px) rotateY(14deg) rotateX(3deg);transform-origin:100% 50%}
+.blatt{position:relative;display:block;width:100%;border-radius:6px;overflow:hidden;box-shadow:0 0 0 1px rgba(183,143,81,.35),0 26px 34px -26px rgba(60,34,12,.45)}
+.bl--nah{flex:1 1 100%;max-width:none;width:100%}.blatt--eng{display:none}
+.hw__nah{grid-column:1/-1;display:grid;gap:clamp(28px,3vw,44px)}.hw__nah .bl figcaption{max-width:720px}
+.hw--breit .hw__kopf{grid-column:1;grid-row:1}.hw--breit .hw__info{grid-column:2;grid-row:1}
+.wisch{width:100%}.bl--nah .blatt img{display:block;width:100%;height:auto}
+@media(max-width:700px){.blatt--weit{display:none}.blatt--eng{display:block;width:max(100%,var(--b));min-width:100%}
+  .wisch{overflow-x:auto;overscroll-behavior-x:contain;-webkit-overflow-scrolling:touch;scrollbar-width:none;padding-bottom:4px}.wisch::-webkit-scrollbar{display:none}}
+.fen{width:100%;border-radius:12px;overflow:hidden;background:#fff;box-shadow:0 0 0 1px rgba(183,143,81,.35),0 26px 34px -26px rgba(60,34,12,.45)}.fen__k{display:flex;gap:6px;align-items:center;padding:8px 12px;background:#2a1a0e;color:#cbb393;font:400 10px var(--mono)}
+.fen__k i{width:8px;height:8px;border-radius:50%;background:#6d431f}.fen__s{position:relative}
+.code{width:100%;border-radius:14px;overflow:hidden;background:#170d06;color:#efe4d3;box-shadow:0 26px 34px -26px rgba(60,34,12,.45)}.code__k{display:flex;justify-content:space-between;gap:10px;padding:10px 14px;font:400 10px var(--mono);color:var(--licht);border-bottom:1px solid rgba(243,205,148,.2)}
+.code pre{margin:0;padding:12px 14px;font:400 11px/1.6 var(--mono);white-space:pre-wrap;word-break:break-all}.code pre span{display:block}.code pre .rot{color:#ff8f75}
+.lu-rahmen{position:absolute;inset:0;width:100%;height:100%;overflow:visible;pointer-events:none}
+.lu-rahmen rect,.lu-rahmen ellipse{fill:none;stroke:#d22b1e;stroke-width:3}.lu-rahmen .lu-r-halo{stroke:#fff;stroke-width:5;opacity:.7}
+.so{grid-column:1/-1;display:grid;grid-template-columns:minmax(150px,220px) minmax(0,1fr);gap:clamp(20px,3vw,44px);align-items:center;padding:clamp(18px,2.4vw,30px) 0 0;border-top:1px solid rgba(183,143,81,.35)}
+.so--ohne{grid-template-columns:1fr}
+.so__satz{margin:0 0 18px;font:700 clamp(1.15rem,1.6vw,1.45rem)/1.35 var(--serif)}
+.selbst{margin:18px 0 0!important;font-size:.9rem;line-height:1.55;color:rgba(42,26,14,.72)}.selbst span{display:block;font:400 10.5px var(--mono);letter-spacing:.14em;text-transform:uppercase;color:#8a6a3c;margin-bottom:4px}
+.selbst a{margin-left:6px;color:#7a4a1c}
+/* Gut, Vorgehen, Fuss */
+.gut{padding:clamp(70px,9vw,130px) var(--rand) clamp(30px,4vw,60px)}
+.gut ul{list-style:none;margin:0 auto;padding:0;max-width:1100px;display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:clamp(12px,1.6vw,22px)}
+.gut li{padding:20px 22px;border-radius:20px;background:var(--blatt);box-shadow:inset 0 0 0 1px rgba(183,143,81,.35);font-size:.98rem;line-height:1.55}
+.gut li b{display:block;margin-bottom:6px;font:700 1.15rem var(--serif)}
+.vorgehen{padding:clamp(40px,6vw,90px) var(--rand) clamp(70px,9vw,130px)}
+.vorgehen__g{display:grid;grid-template-columns:minmax(0,1.3fr) minmax(0,1fr);gap:clamp(30px,4vw,64px);max-width:1180px;margin:0 auto;align-items:start}
+.vorgehen h2{font-size:clamp(2rem,3.6vw,3rem);margin-bottom:18px}.vorgehen p{max-width:62ch}
+.knoepfe{display:flex;flex-wrap:wrap;gap:12px;margin-top:26px}
+.grenzen{padding:24px 26px;border-radius:22px;background:var(--blatt);box-shadow:inset 0 0 0 1px rgba(183,143,81,.4)}.grenzen ul{margin:0;padding-left:18px;font-size:.95rem;line-height:1.55}.grenzen li+li{margin-top:10px}
+.fuss{padding:clamp(50px,6vw,80px) var(--rand);text-align:center;background:var(--russ);color:rgba(251,245,234,.78)}
+.fuss__n{margin:0 0 6px;font:700 1.3rem var(--serif);letter-spacing:.08em;text-transform:uppercase;color:var(--licht)}.fuss p{margin:4px 0}.fuss__k{font-size:.82rem;opacity:.75}
+/* Auftritt: einmal hochschweben, wenn der Teil ins Bild kommt; nichts hängt am Scrollen */
+.js [data-a]{opacity:0;transform:translateY(34px);transition:opacity 1s cubic-bezier(.16,1,.3,1),transform 1.3s cubic-bezier(.16,1,.3,1);transition-delay:calc(var(--i,0)*90ms)}
+.js [data-a].da{opacity:1;transform:none}
+@media (prefers-reduced-motion:reduce){.js [data-a]{opacity:1;transform:none;transition:none}}
+@media (max-width:1000px){.bereiche{grid-template-columns:repeat(2,minmax(0,1fr))}.hw{grid-template-columns:1fr}.hw__kopf,.hw__heute,.hw__info,.hw--breit .hw__kopf,.hw--breit .hw__info{grid-column:1;grid-row:auto}
+  .gut ul{grid-template-columns:repeat(2,minmax(0,1fr))}.vorgehen__g{grid-template-columns:1fr}.lesen{grid-template-columns:1fr}}
+@media (max-width:600px){.bereiche,.gut ul{grid-template-columns:1fr}.so{grid-template-columns:1fr}.so__g{width:min(220px,70%);margin:0 auto}.buehne{gap:10px;padding:12px}
+  .buehne--2 .bl--tel .geraet{transform:none!important}.knoepfe{flex-direction:column;align-items:flex-start}}
+</style>
+<script>/* oben.js (Projektleitung Ruedihus 18.10.2026): ohne #-Stelle öffnet die Seite oben, auch nach Neuladen */(function () { try { if (!location.hash && 'scrollRestoration' in history) history.scrollRestoration = 'manual'; } catch (e) {} })();document.documentElement.classList.add('js');</script>
+<script src="/besuch.js?v=3c4c57a56e" defer></script><script src="/verweil.js?v=5881fd455d" defer></script></head>
+<body>
+<header class="auftakt" id="oben">
+  <picture><source media="(max-width:700px)" srcset="assets/neu/auftakt-sommer-handy.webp"><img src="assets/neu/auftakt-sommer-1500.webp" srcset="assets/neu/auftakt-sommer-1500.webp 1500w, assets/neu/auftakt-sommer-2000.webp 2000w" sizes="100vw" alt="Der Landgasthof Ruedihus im Sommer, vor den Felsen von Kandersteg" fetchpriority="high"></picture>
+  <div class="auftakt__t">
+    <p class="k k--hell">Potenzialanalyse · Kandersteg · seit 1753</p>
+    <h1>Ihre Seite,<br><em>genau gelesen.</em></h1>
+    <p class="auftakt__s">Ihre heutige Website, gelesen wie Ihre Karte: Zeile für Zeile, mit Seite und Preis.</p>
+    <p class="auftakt__z"><span>8 Seiten</span><span>6 Sprachen</span><span>11 Hinweise</span><span>Messung vom 16. Oktober 2026</span></p>
+  </div>
+</header>
+<main>
+<section class="ueber" id="ueberblick">
+  <header class="kopf" data-a><p class="k">Auf einen Blick</p><h2>Vier Bereiche, 11 Hinweise.</h2>
+    <p>Wir haben jede Seite des Ruedihus geöffnet, jeden Knopf angetippt und die Website mit Ihren drei Karten verglichen. Zu jedem Hinweis zeigen wir die Stelle, wie sie heute aussieht, was es Gast und Haus kostet, und wie es im Entwurf gelöst ist.</p></header>
+  <div class="bereiche"><a class="bereich" href="#r-reservieren" data-a style="--i:0"><span class="bereich__n">2</span><b>Reservieren</b><span>Der Weg vom Lesen zum Buchen und zum Telefon.</span><small>Zuerst: Buchen bei den Anlässen</small></a><a class="bereich" href="#r-karte" data-a style="--i:1"><span class="bereich__n">4</span><b>Karte und Website</b><span>Wo Ihre gedruckten Karten und die Website verschiedene Zahlen nennen.</span><small>Zuerst: Die Kleine Karte von 2022</small></a><a class="bereich" href="#r-erzaehlen" data-a style="--i:2"><span class="bereich__n">2</span><b>Was die Seiten erzählen</b><span>Was ein Gast über das Ruedihus erfährt, und was er noch nicht erfährt.</span><small>Zuerst: Die Anlässe fehlen</small></a><a class="bereich" href="#r-gefunden" data-a style="--i:3"><span class="bereich__n">3</span><b>Gefunden werden</b><span>Was Google und das Cookie-Fenster mit Ihren Seiten tun.</span><small>Zuerst: Impressum und Datenschutz</small></a></div>
+</section>
+<section class="lesen" data-a>
+  <div class="lesen__z"><b>1</b><p><span>Die Stelle</span>Ein Ausschnitt der heutigen Seite im iPhone, die Stelle rot umrandet, oder die Karte, wie sie gedruckt ist.</p></div>
+  <div class="lesen__z"><b>2</b><p><span>Belegt</span>Was gemessen wurde, mit Datum und Adresse, damit Sie es selbst nachsehen können.</p></div>
+  <div class="lesen__z"><b>3</b><p><span>So im Entwurf</span>Wie dieselbe Stelle auf der neuen Seite gelöst ist.</p></div>
+</section>
+
+<section class="rubrik" id="r-reservieren">
+  <header class="rubrik__kopf" data-a><p class="rubrik__z">I</p><h2>Reservieren</h2><p>Der Weg vom Lesen zum Buchen und zum Telefon.</p></header>
+  
+<article class="hw" id="h-1" data-a>
+  <header class="hw__kopf">
+    <p class="hw__nr"><span>01</span>Reservieren</p>
+    <h3>Auf der Events-Seite führt «Jetzt buchen» zu einer Adresse, die es nicht mehr gibt</h3>
+    <p class="hw__klar">Der Knopf «Jetzt buchen» oben auf der Events-Seite führt zu einem früheren Buchungsdienst, den es nicht mehr gibt. Wer dort tippt, sieht keine Seite.</p>
+  </header>
+  <div class="hw__heute"><p class="k">So ist es heute</p><div class="buehne buehne--2"><figure class="bl bl--tel"><div class="geraet "><div class="geraet__s"><img src="assets/lu/lu-e015df35dd8c.webp" width="700" height="1515" alt="Events-Seite, Knopf «Jetzt buchen»" loading="lazy" decoding="async"><svg class="lu-rahmen" viewBox="0 0 100 100" preserveAspectRatio="none" aria-hidden="true"><rect x="0.60" y="6.99" width="98.80" height="6.64" rx="2.00" ry="0.92" vector-effect="non-scaling-stroke" class="lu-r-halo"/><rect x="0.60" y="6.99" width="98.80" height="6.64" rx="2.00" ry="0.92" vector-effect="non-scaling-stroke"/></svg></div><img class="geraet__g" src="assets/lu/lu-7a6dc78b1b58.webp" width="827" height="1719" alt="" aria-hidden="true" loading="lazy" decoding="async"></div><figcaption><b>Events-Seite, Knopf «Jetzt buchen»</b></figcaption></figure><figure class="bl bl--tel"><div class="geraet "><div class="geraet__s"><img src="assets/lu/lu-bafd4175dacc.webp" width="520" height="1131" alt="Das sieht der Gast" loading="lazy" decoding="async"><svg class="lu-rahmen" viewBox="0 0 100 100" preserveAspectRatio="none" aria-hidden="true"><rect x="11.92" y="20.16" width="76.15" height="7.34" rx="2.69" ry="1.24" vector-effect="non-scaling-stroke" class="lu-r-halo"/><rect x="11.92" y="20.16" width="76.15" height="7.34" rx="2.69" ry="1.24" vector-effect="non-scaling-stroke"/></svg></div><img class="geraet__g" src="assets/lu/lu-7a6dc78b1b58.webp" width="827" height="1719" alt="" aria-hidden="true" loading="lazy" decoding="async"></div><figcaption><b>Das sieht der Gast</b> · «Safari kann die Seite nicht öffnen».</figcaption></figure></div></div>
+  <div class="hw__info">
+    <section class="karte karte--beleg"><p class="k">Belegt</p><ul><li>Ziel des Knopfs: <code>https://sb.ghix.net/Login.aspx?HotelID=2773340&amp;view=Superbooking1&amp;Language=2</code>. Die Abfrage des Namens <code>sb.ghix.net</code> ergibt am 16. Oktober 2026 «not found» (NXDOMAIN).</li><li>Der Knopf steht auf <b>63 von 96</b> Adressen der Sitemap: auf allen Seiten mit Veranstaltungen beider Häuser, darunter die <b>elf</b> Anlass-Seiten des Ruedihus, und auf der Events-Seite des Ruedihus in allen sechs Sprachen. Auf den übrigen Seiten führt «Jetzt buchen» zu <code>simplebooking.it/ibe2/hotel/11517</code>. (Zwei Anlass-Seiten haben wir im Quelltext geprüft; er enthält denselben Knopf.)</li></ul><p class="quelle">Aufgenommen am 16. Oktober 2026 auf doldenhorn-ruedihus.ch/ruedihus</p></section>
+    <section class="karte"><p class="k">Für Ihre Gäste</p><p>Wer bei den Anlässen Lust auf einen Besuch bekommt und gleich ein Zimmer sucht, kommt an dieser Stelle nicht weiter und muss den Weg zur Buchung selbst suchen.</p></section>
+    <section class="karte"><p class="k">Für Ihr Haus</p><p>Genau dort, wo Ihre Anlässe Lust auf einen Besuch machen, führt der Knopf ins Leere.</p></section>
+  </div>
+  
+  <div class="so">
+    <div class="so__g"><div class="geraet geraet--entwurf"><div class="geraet__s"><img src="assets/entwurf/1.jpg" width="780" height="1688" alt="Im Entwurf: Jeder Anlass steht mit seinem Monat und seinem Menu da, und der Knopf fragt direkt einen Tisch an." loading="lazy" decoding="async"></div><img class="geraet__g" src="assets/lu/lu-7a6dc78b1b58.webp" width="827" height="1719" alt="" aria-hidden="true" loading="lazy" decoding="async"></div></div>
+    <div class="so__t"><p class="k">So im Entwurf</p><p class="so__satz">Jeder Anlass steht mit seinem Monat und seinem Menu da, und der Knopf fragt direkt einen Tisch an.</p>
+      <a class="knopf knopf--hell" href="https://ruedihus.tastystudios.ch/veranstaltungen.html" target="_blank" rel="noopener"><span>Im Entwurf ansehen</span><i><svg viewBox="0 0 16 16" aria-hidden="true"><path d="M4 12 12 4M5.5 4H12v6.5"/></svg></i></a>
+      <p class="selbst"><span>Selbst nachsehen</span>Auf der Events-Seite oben auf «Jetzt buchen» tippen. <a href="https://doldenhorn-ruedihus.ch/ruedihus/events/" target="_blank" rel="noopener">Events-Seite</a></p></div>
+  </div>
+</article>
+<article class="hw" id="h-2" data-a>
+  <header class="hw__kopf">
+    <p class="hw__nr"><span>02</span>Reservieren</p>
+    <h3>Bei den Zimmern führt «Mehr Infos» in den Buchungskalender</h3>
+    <p class="hw__klar">Wer bei einem Zimmer auf «Mehr Infos» tippt, sieht keine Fotos, sondern den Buchungskalender. Oben steht dort der Name und die Adresse des Waldhotel Doldenhorn.</p>
+  </header>
+  <div class="hw__heute"><p class="k">So ist es heute</p><div class="buehne buehne--2"><figure class="bl bl--tel"><div class="geraet "><div class="geraet__s"><img src="assets/lu/lu-98a4044570df.webp" width="700" height="1515" alt="Zimmer" loading="lazy" decoding="async"><svg class="lu-rahmen" viewBox="0 0 100 100" preserveAspectRatio="none" aria-hidden="true"><ellipse cx="63.01" cy="44.99" rx="27.30" ry="2.55" vector-effect="non-scaling-stroke" class="lu-r-halo"/><ellipse cx="63.01" cy="44.99" rx="27.30" ry="2.55" vector-effect="non-scaling-stroke"/></svg></div><img class="geraet__g" src="assets/lu/lu-7a6dc78b1b58.webp" width="827" height="1719" alt="" aria-hidden="true" loading="lazy" decoding="async"></div><figcaption><b>Zimmer</b> · «→ MEHR INFOS»</figcaption></figure><figure class="bl bl--tel"><div class="geraet "><div class="geraet__s"><img src="assets/lu/lu-02faecd354bc.webp" width="700" height="1515" alt="Was nach dem Tippen kommt: der Buchungskalender" loading="lazy" decoding="async"><svg class="lu-rahmen" viewBox="0 0 100 100" preserveAspectRatio="none" aria-hidden="true"><rect x="1.03" y="0.60" width="91.54" height="6.98" rx="2.00" ry="0.92" vector-effect="non-scaling-stroke" class="lu-r-halo"/><rect x="1.03" y="0.60" width="91.54" height="6.98" rx="2.00" ry="0.92" vector-effect="non-scaling-stroke"/></svg></div><img class="geraet__g" src="assets/lu/lu-7a6dc78b1b58.webp" width="827" height="1719" alt="" aria-hidden="true" loading="lazy" decoding="async"></div><figcaption><b>Was nach dem Tippen kommt: der Buchungskalender</b></figcaption></figure></div></div>
+  <div class="hw__info">
+    <section class="karte karte--beleg"><p class="k">Belegt</p><ul><li>Alle vier Knöpfe «→ Mehr Infos» und «Jetzt buchen →» führen auf <code>simplebooking.it/ibe2/hotel/11517</code>. Diese Buchung gilt für beide Häuser, ihr Titel lautet «Relais Chateaux Waldhotel Doldenhorn und Landgasthof Ruedihus». Aufgenommen im Safari-Kern (iPhone) am 16. Oktober 2026.</li></ul><p class="quelle">Aufgenommen am 16. Oktober 2026 auf doldenhorn-ruedihus.ch/ruedihus</p></section>
+    <section class="karte"><p class="k">Für Ihre Gäste</p><p>Wer mehr über die Liebeslaube wissen will, sieht einen Kalender mit der Adresse eines anderen Hauses und muss sich erst zurechtfinden.</p></section>
+    <section class="karte"><p class="k">Für Ihr Haus</p><p>Himmelbett, Stube, Geschichte: Das ist der Moment, in dem der Gast genau das sehen möchte.</p></section>
+  </div>
+  
+  <div class="so">
+    <div class="so__g"><div class="geraet geraet--entwurf"><div class="geraet__s"><img src="assets/entwurf/2.jpg" width="780" height="1688" alt="Im Entwurf: Jedes Zimmer hat seine eigene Seite mit Fotos und Ausstattung, und der Knopf zum Buchen heisst auch so." loading="lazy" decoding="async"></div><img class="geraet__g" src="assets/lu/lu-7a6dc78b1b58.webp" width="827" height="1719" alt="" aria-hidden="true" loading="lazy" decoding="async"></div></div>
+    <div class="so__t"><p class="k">So im Entwurf</p><p class="so__satz">Jedes Zimmer hat seine eigene Seite mit Fotos und Ausstattung, und der Knopf zum Buchen heisst auch so.</p>
+      <a class="knopf knopf--hell" href="https://ruedihus.tastystudios.ch/zimmer.html" target="_blank" rel="noopener"><span>Im Entwurf ansehen</span><i><svg viewBox="0 0 16 16" aria-hidden="true"><path d="M4 12 12 4M5.5 4H12v6.5"/></svg></i></a>
+      <p class="selbst"><span>Selbst nachsehen</span>Auf der Zimmerseite unter «Ruedihus Typ Landhaus» auf «→ Mehr Infos» tippen. <a href="https://doldenhorn-ruedihus.ch/ruedihus/zimmer/" target="_blank" rel="noopener">Zimmerseite</a></p></div>
+  </div>
+</article>
+</section>
+<section class="rubrik" id="r-karte">
+  <header class="rubrik__kopf" data-a><p class="rubrik__z">II</p><h2>Karte und Website</h2><p>Wo Ihre gedruckten Karten und die Website verschiedene Zahlen nennen.</p></header>
+  
+<article class="hw" id="h-4" data-a>
+  <header class="hw__kopf">
+    <p class="hw__nr"><span>03</span>Karte und Website</p>
+    <h3>Die «Kleine Karte» auf der Restaurant-Seite ist die Fassung von 2022</h3>
+    <p class="hw__klar">Die Restaurant-Seite verlinkt eine «Kleine Karte» von 2022. Zehn Gerichte haben dort einen anderen Preis als auf Ihrer Karte von 2026, zum Beispiel das Chäsfondue: dort 28.00, auf der Karte 29.00.</p>
+  </header>
+  <div class="hw__heute"><p class="k">So ist es heute</p><div class="buehne buehne--1"><figure class="bl bl--tel"><div class="geraet "><div class="geraet__s"><img src="assets/lu/lu-627f80a606e5.webp" width="700" height="1515" alt="Restaurant" loading="lazy" decoding="async"><svg class="lu-rahmen" viewBox="0 0 100 100" preserveAspectRatio="none" aria-hidden="true"><ellipse cx="50.00" cy="44.99" rx="38.55" ry="6.01" vector-effect="non-scaling-stroke" class="lu-r-halo"/><ellipse cx="50.00" cy="44.99" rx="38.55" ry="6.01" vector-effect="non-scaling-stroke"/></svg></div><img class="geraet__g" src="assets/lu/lu-7a6dc78b1b58.webp" width="827" height="1719" alt="" aria-hidden="true" loading="lazy" decoding="async"></div><figcaption><b>Restaurant</b></figcaption></figure></div></div>
+  <div class="hw__info">
+    <section class="karte karte--beleg"><p class="k">Belegt</p><ul><li>Knopf «Kleine Karte» → <code>…/wp-content/uploads/2023/10/Kleine-Karte-NEU-2022-webseite.pdf</code>, laut PDF erstellt am 17. Juli 2022.</li><li>Verglichen mit der Karte Chäs- und Wystube ab 1.3.2026 (2022 / 2026): Chäsfondue 28.00 / 29.00 · Trochewurscht mit Hobelchäs 24.00 / 27.00 · E Schnifu Burehamme 22.00 / 24.00 · Hobelchäs 19.00 / 22.00 · Tagessuppe 9.50 / 10.50 · Grüner Salat 9.50 / 10.50 · Randesalat 9.50 / 11.50 · Öpfelchüechli 12.00 und 14.00 / 14.00 und 16.00 · Coupe Apricotine 9.50 und 12.00 / 10.50 und 14.00 · Coupe Romantic 9.50 und 12.00 / 10.50 und 14.00. Gleich: Mostbröckli 28.00.</li></ul><p class="quelle">Aufgenommen am 16. Oktober 2026 auf doldenhorn-ruedihus.ch/ruedihus</p></section>
+    <section class="karte"><p class="k">Für Ihre Gäste</p><p>Wer am Abend vorher 28 Franken liest, bekommt am Tisch die Karte mit 29 Franken. Bei zehn Gerichten ist es so.</p></section>
+    <section class="karte"><p class="k">Für Ihr Haus</p><p>Ihre Karten vom März 2026 sind da und schön gemacht. Mit der Karte von 2022 daneben gibt es zwei Preise für dasselbe Gericht.</p></section>
+  </div>
+  <div class="hw__nah"><figure class="bl bl--blatt bl--nah"><a class="blatt blatt--weit" href="assets/lu/lu-19d273715857.webp" target="_blank" rel="noopener" title="Ganze Seite öffnen"><img src="assets/lu/lu-19d273715857-z0-37.webp" width="1121" height="449" alt="Kleine Karte, Juli 2022 (heute verlinkt)" loading="lazy" decoding="async"><svg class="lu-rahmen" viewBox="0 0 100 100" preserveAspectRatio="none" aria-hidden="true"><rect x="6.13" y="45.00" width="84.51" height="10.14" rx="1.25" ry="3.12" vector-effect="non-scaling-stroke" class="lu-r-halo"/><rect x="6.13" y="45.00" width="84.51" height="10.14" rx="1.25" ry="3.12" vector-effect="non-scaling-stroke"/></svg></a><div class="wisch"><a class="blatt blatt--eng" style="--b:522px" href="assets/lu/lu-19d273715857.webp" target="_blank" rel="noopener" title="Ganze Seite öffnen"><img src="assets/lu/lu-19d273715857-ze46-14.webp" width="991" height="495" alt="Kleine Karte, Juli 2022 (heute verlinkt)" loading="lazy" decoding="async"><svg class="lu-rahmen" viewBox="0 0 100 100" preserveAspectRatio="none" aria-hidden="true"><rect x="2.29" y="45.47" width="95.60" height="9.20" rx="1.41" ry="2.83" vector-effect="non-scaling-stroke" class="lu-r-halo"/><rect x="2.29" y="45.47" width="95.60" height="9.20" rx="1.41" ry="2.83" vector-effect="non-scaling-stroke"/></svg></a></div><figcaption><b>Kleine Karte, Juli 2022 (heute verlinkt)</b></figcaption></figure></div>
+  <div class="so">
+    <div class="so__g"><div class="geraet geraet--entwurf"><div class="geraet__s"><img src="assets/entwurf/4.jpg" width="780" height="1688" alt="Im Entwurf: Die Karten stehen mit ihrem Stand ab 1. März 2026 auf der Seite. Die Kleine Karte von 2022 ist nicht mehr dabei." loading="lazy" decoding="async"></div><img class="geraet__g" src="assets/lu/lu-7a6dc78b1b58.webp" width="827" height="1719" alt="" aria-hidden="true" loading="lazy" decoding="async"></div></div>
+    <div class="so__t"><p class="k">So im Entwurf</p><p class="so__satz">Die Karten stehen mit ihrem Stand ab 1. März 2026 auf der Seite. Die Kleine Karte von 2022 ist nicht mehr dabei.</p>
+      <a class="knopf knopf--hell" href="https://ruedihus.tastystudios.ch/essen.html" target="_blank" rel="noopener"><span>Im Entwurf ansehen</span><i><svg viewBox="0 0 16 16" aria-hidden="true"><path d="M4 12 12 4M5.5 4H12v6.5"/></svg></i></a>
+      <p class="selbst"><span>Selbst nachsehen</span>Auf der Restaurant-Seite «Kleine Karte» öffnen und das Chäsfondue mit der Karte der Chäs- und Wystube vergleichen. <a href="https://doldenhorn-ruedihus.ch/ruedihus/restaurant/" target="_blank" rel="noopener">Restaurant-Seite</a><a href="https://doldenhorn-ruedihus.ch/wp-content/uploads/2023/10/Kleine-Karte-NEU-2022-webseite.pdf" target="_blank" rel="noopener">Kleine Karte (2022)</a><a href="https://doldenhorn-ruedihus.ch/wp-content/uploads/2026/03/RH-Chaes-und-Wystube-ab-1.3.2026.pdf" target="_blank" rel="noopener">Karte Chäs- und Wystube ab 1.3.2026</a></p></div>
+  </div>
+</article>
+<article class="hw" id="h-5" data-a>
+  <header class="hw__kopf">
+    <p class="hw__nr"><span>04</span>Karte und Website</p>
+    <h3>Für die Gutscheine stehen zwei Preisreihen auf Ihren Karten</h3>
+    <p class="hw__klar">Ein Gutschein fürs Doppelzimmer kostet laut Karte der Chäs- und Wystube CHF 250.00, laut Tagesteller «ab CHF 265.00».</p>
+  </header>
+  <div class="hw__heute"><p class="k">So ist es heute</p><div class="buehne buehne--1"><figure class="bl bl--tel"><div class="geraet "><div class="geraet__s"><img src="assets/lu/lu-2042eddd1d2c.webp" width="700" height="1515" alt="Zimmer" loading="lazy" decoding="async"><svg class="lu-rahmen" viewBox="0 0 100 100" preserveAspectRatio="none" aria-hidden="true"><rect x="18.46" y="43.36" width="33.33" height="3.26" rx="2.00" ry="0.92" vector-effect="non-scaling-stroke" class="lu-r-halo"/><rect x="18.46" y="43.36" width="33.33" height="3.26" rx="2.00" ry="0.92" vector-effect="non-scaling-stroke"/></svg></div><img class="geraet__g" src="assets/lu/lu-7a6dc78b1b58.webp" width="827" height="1719" alt="" aria-hidden="true" loading="lazy" decoding="async"></div><figcaption><b>Zimmer</b> · «250.00 CHF»</figcaption></figure></div></div>
+  <div class="hw__info">
+    <section class="karte karte--beleg"><p class="k">Belegt</p><ul><li>Karte Chäs- und Wystube ab 1.3.2026, Seite 1, «GESCHENKGUTSCHEINE»: «im Doppelzimmer CHF 250.00 / in der Hochzeitsstube CHF 300.00 / in unsere Liebeslaube CHF 390.00 / und den zwei Juniorsuiten HIMMELREICH für CHF 390.00 für zwei Personen».</li><li>Tagesteller ab 01.03.2026, Seite 1: «eine Übernachtung für 2 Personen mit Frühstück zum Preis ab CHF 265.00 … im Hochzeitszimmer ab CHF 315.00 … Liebeslaube und Himmelreich ab CHF 390.00».</li><li>Zimmerseite: «Ab: 250.00 CHF / Nacht» (Landhaus), «Ab: 300.00» (Hochzeitsstube), «Ab: 390.00» (Liebeslaube und Hymmelrich).</li></ul><p class="quelle">Aufgenommen am 16. Oktober 2026 auf doldenhorn-ruedihus.ch/ruedihus</p></section>
+    <section class="karte"><p class="k">Für Ihre Gäste</p><p>Wer einen Gutschein verschenken möchte und beide Karten gesehen hat, weiss nicht, welcher Betrag gilt.</p></section>
+    <section class="karte"><p class="k">Für Ihr Haus</p><p>Ein Gutschein ist ein Verkauf, der am besten ohne Rückfrage gelingt. Mit einer Zahl geht das leichter.</p></section>
+  </div>
+  <div class="hw__nah"><figure class="bl bl--blatt bl--nah"><a class="blatt blatt--weit" href="assets/lu/lu-ecb4cdabecab.webp" target="_blank" rel="noopener" title="Ganze Seite öffnen"><img src="assets/lu/lu-ecb4cdabecab-z554-180.webp" width="943" height="377" alt="Karte Chäs- und Wystube ab 1.3.2026, Seite 1" loading="lazy" decoding="async"><svg class="lu-rahmen" viewBox="0 0 100 100" preserveAspectRatio="none" aria-hidden="true"><rect x="27.98" y="44.61" width="44.09" height="11.22" rx="1.48" ry="3.71" vector-effect="non-scaling-stroke" class="lu-r-halo"/><rect x="27.98" y="44.61" width="44.09" height="11.22" rx="1.48" ry="3.71" vector-effect="non-scaling-stroke"/></svg></a><div class="wisch"><a class="blatt blatt--eng" style="--b:296px" href="assets/lu/lu-ecb4cdabecab.webp" target="_blank" rel="noopener" title="Ganze Seite öffnen"><img src="assets/lu/lu-ecb4cdabecab-ze765-239.webp" width="521" height="260" alt="Karte Chäs- und Wystube ab 1.3.2026, Seite 1" loading="lazy" decoding="async"><svg class="lu-rahmen" viewBox="0 0 100 100" preserveAspectRatio="none" aria-hidden="true"><rect x="10.14" y="41.99" width="79.81" height="16.27" rx="2.69" ry="5.38" vector-effect="non-scaling-stroke" class="lu-r-halo"/><rect x="10.14" y="41.99" width="79.81" height="16.27" rx="2.69" ry="5.38" vector-effect="non-scaling-stroke"/></svg></a></div><figcaption><b>Karte Chäs- und Wystube ab 1.3.2026, Seite 1</b></figcaption></figure></div>
+  <div class="so">
+    <div class="so__g"><div class="geraet geraet--entwurf"><div class="geraet__s"><img src="assets/entwurf/5.jpg" width="780" height="1688" alt="Im Entwurf: Den Gutschein fragt der Gast in einem Fenster an, den Betrag nennt das Haus." loading="lazy" decoding="async"></div><img class="geraet__g" src="assets/lu/lu-7a6dc78b1b58.webp" width="827" height="1719" alt="" aria-hidden="true" loading="lazy" decoding="async"></div></div>
+    <div class="so__t"><p class="k">So im Entwurf</p><p class="so__satz">Den Gutschein fragt der Gast in einem Fenster an, den Betrag nennt das Haus.</p>
+      <a class="knopf knopf--hell" href="https://ruedihus.tastystudios.ch/index.html" target="_blank" rel="noopener"><span>Im Entwurf ansehen</span><i><svg viewBox="0 0 16 16" aria-hidden="true"><path d="M4 12 12 4M5.5 4H12v6.5"/></svg></i></a>
+      <p class="selbst"><span>Selbst nachsehen</span>Auf beiden Karten nach «Gutschein» suchen (Befehl-F) und die Beträge vergleichen. <a href="https://doldenhorn-ruedihus.ch/wp-content/uploads/2026/03/RH-Chaes-und-Wystube-ab-1.3.2026.pdf" target="_blank" rel="noopener">Karte Chäs- und Wystube ab 1.3.2026</a><a href="https://doldenhorn-ruedihus.ch/wp-content/uploads/2026/03/Tagesteller-ab-01.03.2026.pdf" target="_blank" rel="noopener">Tagesteller ab 01.03.2026</a><a href="https://doldenhorn-ruedihus.ch/ruedihus/zimmer/" target="_blank" rel="noopener">Zimmerseite</a></p></div>
+  </div>
+</article>
+<article class="hw" id="h-6" data-a>
+  <header class="hw__kopf">
+    <p class="hw__nr"><span>05</span>Karte und Website</p>
+    <h3>Die Zahl der Zimmer steht auf Website und Karte verschieden</h3>
+    <p class="hw__klar">Die Website nennt 10 Zimmer und 3 Junior Suiten. Ihre Karte zählt 12 Zimmer, davon zwei Juniorsuiten.</p>
+  </header>
+  <div class="hw__heute"><p class="k">So ist es heute</p><div class="buehne buehne--1"><figure class="bl bl--tel"><div class="geraet "><div class="geraet__s"><img src="assets/lu/lu-dde5dd075efd.webp" width="700" height="1515" alt="Seite «Ruedihus»" loading="lazy" decoding="async"><svg class="lu-rahmen" viewBox="0 0 100 100" preserveAspectRatio="none" aria-hidden="true"><rect x="26.67" y="41.71" width="33.59" height="6.64" rx="2.00" ry="0.92" vector-effect="non-scaling-stroke" class="lu-r-halo"/><rect x="26.67" y="41.71" width="33.59" height="6.64" rx="2.00" ry="0.92" vector-effect="non-scaling-stroke"/></svg></div><img class="geraet__g" src="assets/lu/lu-7a6dc78b1b58.webp" width="827" height="1719" alt="" aria-hidden="true" loading="lazy" decoding="async"></div><figcaption><b>Seite «Ruedihus»</b> · «10 Zimmer»</figcaption></figure></div></div>
+  <div class="hw__info">
+    <section class="karte karte--beleg"><p class="k">Belegt</p><ul><li>Seite «Ruedihus», Kasten «Zimmer»: «10 Zimmer», «3 Junior Suiten».</li><li>Karte Chäs- und Wystube ab 1.3.2026, Seite 1, «UNSER ANGEBOT»: «7 DOPPELZIMMER, wovon 3 mit Himmelbetten / 1 EINZELZIMMER, 1 HOCHZEITSSTUBE, / 1 LIEBESLAUBE, 2 HIMMELREICH». Unter «GESCHENKGUTSCHEINE»: «den zwei Juniorsuiten HIMMELREICH».</li></ul><p class="quelle">Aufgenommen am 16. Oktober 2026 auf doldenhorn-ruedihus.ch/ruedihus</p></section>
+    <section class="karte"><p class="k">Für Ihre Gäste</p><p>Wer für ein Familienfest mit Übernachtung anfragt, rechnet mit 13 oder mit 12 Zimmern, je nachdem, wo er gelesen hat.</p></section>
+    <section class="karte"><p class="k">Für Ihr Haus</p><p>Die Zimmerseite selbst zeigt die vier Arten ohne Zahl. Eine Zahl, die überall gleich ist, macht Gruppenanfragen einfacher.</p></section>
+  </div>
+  <div class="hw__nah"><figure class="bl bl--blatt bl--nah"><a class="blatt blatt--weit" href="assets/lu/lu-9965fa1404aa.webp" target="_blank" rel="noopener" title="Ganze Seite öffnen"><img src="assets/lu/lu-9965fa1404aa-z553-180.webp" width="943" height="377" alt="Karte Chäs- und Wystube ab 1.3.2026, «Unser Angebot»" loading="lazy" decoding="async"><svg class="lu-rahmen" viewBox="0 0 100 100" preserveAspectRatio="none" aria-hidden="true"><rect x="36.56" y="44.61" width="27.08" height="11.22" rx="1.48" ry="3.71" vector-effect="non-scaling-stroke" class="lu-r-halo"/><rect x="36.56" y="44.61" width="27.08" height="11.22" rx="1.48" ry="3.71" vector-effect="non-scaling-stroke"/></svg></a><div class="wisch"><a class="blatt blatt--eng" style="--b:295px" href="assets/lu/lu-9965fa1404aa.webp" target="_blank" rel="noopener" title="Ganze Seite öffnen"><img src="assets/lu/lu-9965fa1404aa-ze765-239.webp" width="520" height="260" alt="Karte Chäs- und Wystube ab 1.3.2026, «Unser Angebot»" loading="lazy" decoding="async"><svg class="lu-rahmen" viewBox="0 0 100 100" preserveAspectRatio="none" aria-hidden="true"><rect x="25.54" y="41.99" width="49.11" height="16.27" rx="2.69" ry="5.38" vector-effect="non-scaling-stroke" class="lu-r-halo"/><rect x="25.54" y="41.99" width="49.11" height="16.27" rx="2.69" ry="5.38" vector-effect="non-scaling-stroke"/></svg></a></div><figcaption><b>Karte Chäs- und Wystube ab 1.3.2026, «Unser Angebot»</b></figcaption></figure></div>
+  <div class="so">
+    <div class="so__g"><div class="geraet geraet--entwurf"><div class="geraet__s"><img src="assets/entwurf/6.jpg" width="780" height="1688" alt="Im Entwurf: Der Entwurf nennt eine Zahl: vier Zimmer unter alten Balken." loading="lazy" decoding="async"></div><img class="geraet__g" src="assets/lu/lu-7a6dc78b1b58.webp" width="827" height="1719" alt="" aria-hidden="true" loading="lazy" decoding="async"></div></div>
+    <div class="so__t"><p class="k">So im Entwurf</p><p class="so__satz">Der Entwurf nennt eine Zahl: vier Zimmer unter alten Balken.</p>
+      <a class="knopf knopf--hell" href="https://ruedihus.tastystudios.ch/zimmer.html" target="_blank" rel="noopener"><span>Im Entwurf ansehen</span><i><svg viewBox="0 0 16 16" aria-hidden="true"><path d="M4 12 12 4M5.5 4H12v6.5"/></svg></i></a>
+      <p class="selbst"><span>Selbst nachsehen</span>Die Seite «Ruedihus» bis zum Kasten «Zimmer» scrollen und mit der ersten Seite der Karte vergleichen. <a href="https://doldenhorn-ruedihus.ch/ruedihus/" target="_blank" rel="noopener">Seite «Ruedihus»</a><a href="https://doldenhorn-ruedihus.ch/wp-content/uploads/2026/03/RH-Chaes-und-Wystube-ab-1.3.2026.pdf" target="_blank" rel="noopener">Karte Chäs- und Wystube ab 1.3.2026</a></p></div>
+  </div>
+</article>
+<article class="hw" id="h-7" data-a>
+  <header class="hw__kopf">
+    <p class="hw__nr"><span>06</span>Karte und Website</p>
+    <h3>Das Haus ist älter, als die Website sagt</h3>
+    <p class="hw__klar">Die Website spricht von «250 Jahren». Ihre Karte nennt das Baujahr 1753, das sind heute 273 Jahre.</p>
+  </header>
+  <div class="hw__heute"><p class="k">So ist es heute</p><div class="buehne buehne--1"><figure class="bl bl--tel"><div class="geraet "><div class="geraet__s"><img src="assets/lu/lu-929521e63d77.webp" width="700" height="1515" alt="Seite «Ruedihus»" loading="lazy" decoding="async"><svg class="lu-rahmen" viewBox="0 0 100 100" preserveAspectRatio="none" aria-hidden="true"><rect x="9.36" y="42.06" width="80.90" height="5.86" rx="2.00" ry="0.92" vector-effect="non-scaling-stroke" class="lu-r-halo"/><rect x="9.36" y="42.06" width="80.90" height="5.86" rx="2.00" ry="0.92" vector-effect="non-scaling-stroke"/></svg></div><img class="geraet__g" src="assets/lu/lu-7a6dc78b1b58.webp" width="827" height="1719" alt="" aria-hidden="true" loading="lazy" decoding="async"></div><figcaption><b>Seite «Ruedihus»</b> · «250-jährigem»</figcaption></figure></div></div>
+  <div class="hw__info">
+    <section class="karte karte--beleg"><p class="k">Belegt</p><ul><li>Seite «Ruedihus»: «Mit 250-jährigem ehrwürdigem Ambiente» (Abschnitt «Das Ruedihus unsere Dependance») und «Atmen Sie die 250 Jahre Geschichte ein» (Abschnitt «Ihr Gastgeber»). Die Zahl 1753 kommt auf den Seiten des Ruedihus nicht vor.</li><li>Karte Chäs- und Wystube ab 1.3.2026, Seite 1: «Das RUEDIHUS wurde 1753 durch Peter Germann erbaut.» 2026 − 1753 = 273.</li></ul><p class="quelle">Aufgenommen am 16. Oktober 2026 auf doldenhorn-ruedihus.ch/ruedihus</p></section>
+    <section class="karte"><p class="k">Für Ihre Gäste</p><p>Wer ein historisches Haus sucht, findet auf der Website kein Baujahr. Auf der Karte steht es: 1753.</p></section>
+    <section class="karte"><p class="k">Für Ihr Haus</p><p>1753 ist eine Zahl, die man sich merkt. Auf der Website fehlen davon 23 Jahre.</p></section>
+  </div>
+  <div class="hw__nah"><figure class="bl bl--blatt bl--nah"><a class="blatt blatt--weit" href="assets/lu/lu-93007e6970f7.webp" target="_blank" rel="noopener" title="Ganze Seite öffnen"><img src="assets/lu/lu-93007e6970f7-z0-74.webp" width="943" height="377" alt="Karte Chäs- und Wystube ab 1.3.2026, «Geschichte»" loading="lazy" decoding="async"><svg class="lu-rahmen" viewBox="0 0 100 100" preserveAspectRatio="none" aria-hidden="true"><rect x="16.43" y="44.54" width="38.41" height="11.22" rx="1.48" ry="3.71" vector-effect="non-scaling-stroke" class="lu-r-halo"/><rect x="16.43" y="44.54" width="38.41" height="11.22" rx="1.48" ry="3.71" vector-effect="non-scaling-stroke"/></svg></a><div class="wisch"><a class="blatt blatt--eng" style="--b:296px" href="assets/lu/lu-93007e6970f7.webp" target="_blank" rel="noopener" title="Ganze Seite öffnen"><img src="assets/lu/lu-93007e6970f7-ze75-132.webp" width="521" height="261" alt="Karte Chäs- und Wystube ab 1.3.2026, «Geschichte»" loading="lazy" decoding="async"><svg class="lu-rahmen" viewBox="0 0 100 100" preserveAspectRatio="none" aria-hidden="true"><rect x="15.34" y="42.11" width="69.53" height="16.21" rx="2.69" ry="5.36" vector-effect="non-scaling-stroke" class="lu-r-halo"/><rect x="15.34" y="42.11" width="69.53" height="16.21" rx="2.69" ry="5.36" vector-effect="non-scaling-stroke"/></svg></a></div><figcaption><b>Karte Chäs- und Wystube ab 1.3.2026, «Geschichte»</b></figcaption></figure></div>
+  <div class="so">
+    <div class="so__g"><div class="geraet geraet--entwurf"><div class="geraet__s"><img src="assets/entwurf/7.jpg" width="780" height="1688" alt="Im Entwurf: Der Entwurf nennt das Baujahr: «Ein Haus von 1753.» Das stimmt in jedem Jahr." loading="lazy" decoding="async"></div><img class="geraet__g" src="assets/lu/lu-7a6dc78b1b58.webp" width="827" height="1719" alt="" aria-hidden="true" loading="lazy" decoding="async"></div></div>
+    <div class="so__t"><p class="k">So im Entwurf</p><p class="so__satz">Der Entwurf nennt das Baujahr: «Ein Haus von 1753.» Das stimmt in jedem Jahr.</p>
+      <a class="knopf knopf--hell" href="https://ruedihus.tastystudios.ch/haus.html" target="_blank" rel="noopener"><span>Im Entwurf ansehen</span><i><svg viewBox="0 0 16 16" aria-hidden="true"><path d="M4 12 12 4M5.5 4H12v6.5"/></svg></i></a>
+      <p class="selbst"><span>Selbst nachsehen</span>Auf der Seite «Ruedihus» mit Befehl-F nach «250» suchen. <a href="https://doldenhorn-ruedihus.ch/ruedihus/" target="_blank" rel="noopener">Seite «Ruedihus»</a><a href="https://doldenhorn-ruedihus.ch/wp-content/uploads/2026/03/RH-Chaes-und-Wystube-ab-1.3.2026.pdf" target="_blank" rel="noopener">Karte Chäs- und Wystube ab 1.3.2026</a></p></div>
+  </div>
+</article>
+</section>
+<section class="rubrik" id="r-erzaehlen">
+  <header class="rubrik__kopf" data-a><p class="rubrik__z">III</p><h2>Was die Seiten erzählen</h2><p>Was ein Gast über das Ruedihus erfährt, und was er noch nicht erfährt.</p></header>
+  
+<article class="hw" id="h-8" data-a>
+  <header class="hw__kopf">
+    <p class="hw__nr"><span>07</span>Was die Seiten erzählen</p>
+    <h3>Ihre Anlässe sind zurzeit nicht zu sehen</h3>
+    <p class="hw__klar">Auf der Startseite des Ruedihus und auf der Events-Seite steht, dass es zurzeit keine Anlässe gibt. Dabei kehren Kuttel-Woche, Stubete und Ruedi-Tag jedes Jahr wieder.</p>
+  </header>
+  <div class="hw__heute"><p class="k">So ist es heute</p><div class="buehne buehne--2"><figure class="bl bl--tel"><div class="geraet "><div class="geraet__s"><img src="assets/lu/lu-1efdba931faa.webp" width="700" height="1515" alt="Seite «Ruedihus»" loading="lazy" decoding="async"><svg class="lu-rahmen" viewBox="0 0 100 100" preserveAspectRatio="none" aria-hidden="true"><rect x="10.90" y="42.12" width="77.82" height="5.81" rx="2.00" ry="0.92" vector-effect="non-scaling-stroke" class="lu-r-halo"/><rect x="10.90" y="42.12" width="77.82" height="5.81" rx="2.00" ry="0.92" vector-effect="non-scaling-stroke"/></svg></div><img class="geraet__g" src="assets/lu/lu-7a6dc78b1b58.webp" width="827" height="1719" alt="" aria-hidden="true" loading="lazy" decoding="async"></div><figcaption><b>Seite «Ruedihus»</b> · «Events sind in Bearbeitung»</figcaption></figure><figure class="bl bl--tel"><div class="geraet "><div class="geraet__s"><img src="assets/lu/lu-4ef24b26679f.webp" width="700" height="1515" alt="Events" loading="lazy" decoding="async"><svg class="lu-rahmen" viewBox="0 0 100 100" preserveAspectRatio="none" aria-hidden="true"><rect x="12.82" y="42.12" width="64.36" height="5.81" rx="2.00" ry="0.92" vector-effect="non-scaling-stroke" class="lu-r-halo"/><rect x="12.82" y="42.12" width="64.36" height="5.81" rx="2.00" ry="0.92" vector-effect="non-scaling-stroke"/></svg></div><img class="geraet__g" src="assets/lu/lu-7a6dc78b1b58.webp" width="827" height="1719" alt="" aria-hidden="true" loading="lazy" decoding="async"></div><figcaption><b>Events</b> · «Zur Zeit gibt es keine»</figcaption></figure></div></div>
+  <div class="hw__info">
+    <section class="karte karte--beleg"><p class="k">Belegt</p><ul><li>Seite «Ruedihus», Abschnitt «Nächste Events»: «Events sind in Bearbeitung und werden sobald wie möglich aufgeschaltet.» Events-Seite: «Zur Zeit gibt es keine bevorstehenden Veranstaltungen.»</li><li>Anlass-Seiten in der Sitemap (Datum laut Seite): Altjahr-Ländler-Stubete 29.12.2023 und 29.12.2024 · Sylvester 31.12.2023 und 31.12.2024 · Silvester-Abend 31.12.2025 · Kuttel-Woche 12.–20.1.2024 und 10.–18.1.2025 · Kuttel-Spezialitäten («Kuttel-Woche im Ruedihus») 9.–17.1.2026 · Metzgete 2.2.–4.4.2024 · Weihnachten 25.12.2024 und 25.12.2025 · Ruedi-Tag 17.4.2025 und 17.4.2026.</li></ul><p class="quelle">Aufgenommen am 16. Oktober 2026 auf doldenhorn-ruedihus.ch/ruedihus</p></section>
+    <section class="karte"><p class="k">Für Ihre Gäste</p><p>Wer im Januar Kutteln essen oder Silvester in der Stube feiern möchte, findet auf der Seite heute keinen Hinweis darauf.</p></section>
+    <section class="karte"><p class="k">Für Ihr Haus</p><p>Metzgete, Kuttel-Woche, Stubete und Ruedi-Tag gibt es so nur bei Ihnen. Das sind Gründe, ins Ruedihus zu kommen.</p></section>
+  </div>
+  
+  <div class="so">
+    <div class="so__g"><div class="geraet geraet--entwurf"><div class="geraet__s"><img src="assets/entwurf/8.jpg" width="780" height="1688" alt="Im Entwurf: Der Jahreslauf zeigt die Anlässe, die jedes Jahr wiederkehren, mit ihrem Monat, auch bevor das Datum feststeht." loading="lazy" decoding="async"></div><img class="geraet__g" src="assets/lu/lu-7a6dc78b1b58.webp" width="827" height="1719" alt="" aria-hidden="true" loading="lazy" decoding="async"></div></div>
+    <div class="so__t"><p class="k">So im Entwurf</p><p class="so__satz">Der Jahreslauf zeigt die Anlässe, die jedes Jahr wiederkehren, mit ihrem Monat, auch bevor das Datum feststeht.</p>
+      <a class="knopf knopf--hell" href="https://ruedihus.tastystudios.ch/veranstaltungen.html" target="_blank" rel="noopener"><span>Im Entwurf ansehen</span><i><svg viewBox="0 0 16 16" aria-hidden="true"><path d="M4 12 12 4M5.5 4H12v6.5"/></svg></i></a>
+      <p class="selbst"><span>Selbst nachsehen</span>Die Seite «Ruedihus» bis «Nächste Events» scrollen, danach die Events-Seite öffnen. <a href="https://doldenhorn-ruedihus.ch/ruedihus/" target="_blank" rel="noopener">Seite «Ruedihus»</a><a href="https://doldenhorn-ruedihus.ch/ruedihus/events/" target="_blank" rel="noopener">Events-Seite</a><a href="https://doldenhorn-ruedihus.ch/event/kuttel-woche-im-landgasthof-ruedihus-2/" target="_blank" rel="noopener">Kuttel-Woche 2025</a></p></div>
+  </div>
+</article>
+<article class="hw" id="h-10" data-a>
+  <header class="hw__kopf">
+    <p class="hw__nr"><span>08</span>Was die Seiten erzählen</p>
+    <h3>In vier Sprachen heisst Ihre «Kleine Karte» «kleine Landkarte»</h3>
+    <p class="hw__klar">Auf Englisch, Italienisch, Chinesisch und Japanisch wird Ihre «Kleine Karte» zur «kleinen Landkarte», auf Englisch steht «SMALL MAP».</p>
+  </header>
+  <div class="hw__heute"><p class="k">So ist es heute</p><div class="buehne buehne--2"><figure class="bl bl--tel"><div class="geraet "><div class="geraet__s"><img src="assets/lu/lu-0b3ec8b05421.webp" width="700" height="1515" alt="Restaurant, Englisch" loading="lazy" decoding="async"><svg class="lu-rahmen" viewBox="0 0 100 100" preserveAspectRatio="none" aria-hidden="true"><ellipse cx="50.00" cy="44.99" rx="20.24" ry="2.38" vector-effect="non-scaling-stroke" class="lu-r-halo"/><ellipse cx="50.00" cy="44.99" rx="20.24" ry="2.38" vector-effect="non-scaling-stroke"/></svg></div><img class="geraet__g" src="assets/lu/lu-7a6dc78b1b58.webp" width="827" height="1719" alt="" aria-hidden="true" loading="lazy" decoding="async"></div><figcaption><b>Restaurant, Englisch</b> · «SMALL MAP»</figcaption></figure><figure class="bl bl--tel"><div class="geraet "><div class="geraet__s"><img src="assets/lu/lu-8b13894bb62e.webp" width="700" height="1515" alt="Zimmer, Englisch" loading="lazy" decoding="async"><svg class="lu-rahmen" viewBox="0 0 100 100" preserveAspectRatio="none" aria-hidden="true"><rect x="18.46" y="43.36" width="37.82" height="3.26" rx="2.00" ry="0.92" vector-effect="non-scaling-stroke" class="lu-r-halo"/><rect x="18.46" y="43.36" width="37.82" height="3.26" rx="2.00" ry="0.92" vector-effect="non-scaling-stroke"/></svg></div><img class="geraet__g" src="assets/lu/lu-7a6dc78b1b58.webp" width="827" height="1719" alt="" aria-hidden="true" loading="lazy" decoding="async"></div><figcaption><b>Zimmer, Englisch</b> · «250.00 CHF»</figcaption></figure></div></div>
+  <div class="hw__info">
+    <section class="karte karte--beleg"><p class="k">Belegt</p><ul><li>Restaurant-Seite, Knopf «Kleine Karte»: EN «SMALL MAP», IT «MAPPA PICCOLA», ZH «小地图» (kleine Landkarte), JA «小さな地図» (kleine Landkarte). FR «PETITE CARTE» passt.</li><li>Zimmerseite, «Ab: 250.00 CHF / Nacht»: EN «As of: 250.00 CHF / night», ZH «截至目前： 250.00 瑞士法郎/晚» («Stand heute»), JA «アブ： 250.00 CHF / 泊», IT «Ab: 250.00 CHF / notte», FR «A partir de 250.00 CHF / nuit».</li><li>Liebeslaube auf derselben englischen Seite: «love arbor» und «love bower».</li></ul><p class="quelle">Aufgenommen am 16. Oktober 2026 auf doldenhorn-ruedihus.ch/ruedihus</p></section>
+    <section class="karte"><p class="k">Für Ihre Gäste</p><p>Ein Gast aus Italien, China oder Japan sucht auf der Restaurant-Seite eine Landkarte und findet eine Speisekarte.</p></section>
+    <section class="karte"><p class="k">Für Ihr Haus</p><p>Sechs Sprachen sind ein Angebot an Gäste von weit her. Gerade die Wörter zum Essen und Buchen fallen ihnen auf.</p></section>
+  </div>
+  
+  <div class="so so--ohne">
+    
+    <div class="so__t"><p class="k">So im Entwurf</p><p class="so__satz">Wenn die Seite übersetzt wird, legen wir die Wörter, die Gäste zum Essen und Buchen brauchen, je Sprache von Hand fest.</p>
+      
+      <p class="selbst"><span>Selbst nachsehen</span>Die Restaurant-Seite öffnen, oben die Sprache auf EN stellen und nach «MAP» suchen. <a href="https://doldenhorn-ruedihus.ch/en/ruedihus/restaurant/" target="_blank" rel="noopener">Restaurant (EN)</a><a href="https://doldenhorn-ruedihus.ch/it/ruedihus/restaurant/" target="_blank" rel="noopener">Restaurant (IT)</a><a href="https://doldenhorn-ruedihus.ch/en/ruedihus/zimmer/" target="_blank" rel="noopener">Zimmer (EN)</a></p></div>
+  </div>
+</article>
+</section>
+<section class="rubrik" id="r-gefunden">
+  <header class="rubrik__kopf" data-a><p class="rubrik__z">IV</p><h2>Gefunden werden</h2><p>Was Google und das Cookie-Fenster mit Ihren Seiten tun.</p></header>
+  
+<article class="hw" id="h-11" data-a>
+  <header class="hw__kopf">
+    <p class="hw__nr"><span>09</span>Gefunden werden</p>
+    <h3>Impressum und Datenschutzerklärung sind nicht verlinkt</h3>
+    <p class="hw__klar">Auf keiner Seite gibt es einen Verweis auf ein Impressum oder eine Datenschutzerklärung.</p>
+  </header>
+  <div class="hw__heute"><p class="k">So ist es heute</p><div class="buehne buehne--1"><figure class="bl bl--tel"><div class="geraet "><div class="geraet__s"><img src="assets/lu/lu-322e4a224d6e.webp" width="700" height="1515" alt="Seite «Ruedihus»" loading="lazy" decoding="async"><svg class="lu-rahmen" viewBox="0 0 100 100" preserveAspectRatio="none" aria-hidden="true"><rect x="10.38" y="92.30" width="79.23" height="3.38" rx="2.00" ry="0.92" vector-effect="non-scaling-stroke" class="lu-r-halo"/><rect x="10.38" y="92.30" width="79.23" height="3.38" rx="2.00" ry="0.92" vector-effect="non-scaling-stroke"/></svg></div><img class="geraet__g" src="assets/lu/lu-7a6dc78b1b58.webp" width="827" height="1719" alt="" aria-hidden="true" loading="lazy" decoding="async"></div><figcaption><b>Seite «Ruedihus»</b> · «Copyright © 2026 Alle Rechte vorbehalten»</figcaption></figure></div></div>
+  <div class="hw__info">
+    <section class="karte karte--beleg"><p class="k">Belegt</p><ul><li>Gesucht in allen Verweisen der 96 Adressen nach «Impressum», «Datenschutz», «Privacy», «AGB»: kein Treffer. Im Cookie-Fenster sind Plätze für «Datenschutzerklärung» und «Impressum» vorgesehen, beide ohne Ziel (<code>href=&quot;#&quot;</code>, Text «{title}»). Der Fuss des Ruedihus enthält «(+41) 033 675 81 81 | Hinder de Büele 6, 3718 Kandersteg | info@doldenhorn.ch» und «Copyright © 2026 Alle Rechte vorbehalten».</li></ul><p class="quelle">Aufgenommen am 16. Oktober 2026 auf doldenhorn-ruedihus.ch/ruedihus</p></section>
+    <section class="karte"><p class="k">Für Ihre Gäste</p><p>Wer nachlesen möchte, wer hinter der Seite steht und was mit seinen Angaben geschieht, findet keinen Verweis dazu.</p></section>
+    <section class="karte"><p class="k">Für Ihr Haus</p><p>Das Cookie-Fenster bietet «Dienste verwalten» an. Eine Erklärung, auf die es verweisen könnte, gibt es noch nicht.</p></section>
+  </div>
+  
+  <div class="so">
+    <div class="so__g"><div class="geraet geraet--entwurf"><div class="geraet__s"><img src="assets/entwurf/11.jpg" width="780" height="1688" alt="Im Entwurf: Impressum, Datenschutz und Bildnachweis stehen auf einer eigenen Seite, verlinkt im Fuss jeder Seite." loading="lazy" decoding="async"></div><img class="geraet__g" src="assets/lu/lu-7a6dc78b1b58.webp" width="827" height="1719" alt="" aria-hidden="true" loading="lazy" decoding="async"></div></div>
+    <div class="so__t"><p class="k">So im Entwurf</p><p class="so__satz">Impressum, Datenschutz und Bildnachweis stehen auf einer eigenen Seite, verlinkt im Fuss jeder Seite.</p>
+      <a class="knopf knopf--hell" href="https://ruedihus.tastystudios.ch/rechtliches.html" target="_blank" rel="noopener"><span>Im Entwurf ansehen</span><i><svg viewBox="0 0 16 16" aria-hidden="true"><path d="M4 12 12 4M5.5 4H12v6.5"/></svg></i></a>
+      <p class="selbst"><span>Selbst nachsehen</span>Auf einer beliebigen Seite bis ganz nach unten scrollen. <a href="https://doldenhorn-ruedihus.ch/ruedihus/" target="_blank" rel="noopener">Seite «Ruedihus»</a></p></div>
+  </div>
+</article>
+<article class="hw" id="h-12" data-a>
+  <header class="hw__kopf">
+    <p class="hw__nr"><span>10</span>Gefunden werden</p>
+    <h3>Eine Meldung an Google Analytics geht ab, bevor der Gast im Cookie-Fenster antwortet</h3>
+    <p class="hw__klar">Noch während das Cookie-Fenster fragt, meldet die Seite den Besuch schon an Google Analytics.</p>
+  </header>
+  <div class="hw__heute"><p class="k">So ist es heute</p><div class="buehne buehne--1"><figure class="bl bl--tel"><div class="geraet "><div class="geraet__s"><img src="assets/lu/lu-93d724aae4c1.webp" width="700" height="1515" alt="Beim Öffnen: das Cookie-Fenster fragt" loading="lazy" decoding="async"><svg class="lu-rahmen" viewBox="0 0 100 100" preserveAspectRatio="none" aria-hidden="true"><rect x="0.60" y="30.33" width="98.80" height="39.45" rx="2.00" ry="0.92" vector-effect="non-scaling-stroke" class="lu-r-halo"/><rect x="0.60" y="30.33" width="98.80" height="39.45" rx="2.00" ry="0.92" vector-effect="non-scaling-stroke"/></svg></div><img class="geraet__g" src="assets/lu/lu-7a6dc78b1b58.webp" width="827" height="1719" alt="" aria-hidden="true" loading="lazy" decoding="async"></div><figcaption><b>Beim Öffnen: das Cookie-Fenster fragt</b></figcaption></figure></div></div>
+  <div class="hw__info">
+    <section class="karte karte--beleg"><p class="k">Belegt</p><ul><li>iPhone (Safari-Kern), Seite «Ruedihus» und Zimmerseite, ohne Antwort im Cookie-Fenster (Fenster sichtbar): Anfrage an <code>googletagmanager.com/gtag/js?id=GT-MJWBVRB</code>, danach an <code>google-analytics.com/g/collect?v=2&amp;tid=G-0EV7YJW5FV … &amp;en=page_view</code>.</li><li>Am Rechner (Chrome) dasselbe auf allen sieben Seiten des Ruedihus.</li></ul><p class="quelle">Aufgenommen am 16. Oktober 2026 auf doldenhorn-ruedihus.ch/ruedihus</p></section>
+    <section class="karte"><p class="k">Für Ihre Gäste</p><p>Er wird gefragt, und bevor er antwortet, ist die Meldung schon unterwegs.</p></section>
+    <section class="karte"><p class="k">Für Ihr Haus</p><p>Das Cookie-Fenster bietet «Ablehnen» gleich gross an wie «Akzeptieren». Damit es hält, was es fragt, wartet die Messung auf die Antwort.</p></section>
+  </div>
+  
+  <div class="so">
+    <div class="so__g"><div class="geraet geraet--entwurf"><div class="geraet__s"><img src="assets/entwurf/12.jpg" width="780" height="1688" alt="Im Entwurf: Der Entwurf setzt keine Cookies. Es geht keine Meldung ab, bevor der Gast etwas gewählt hat." loading="lazy" decoding="async"></div><img class="geraet__g" src="assets/lu/lu-7a6dc78b1b58.webp" width="827" height="1719" alt="" aria-hidden="true" loading="lazy" decoding="async"></div></div>
+    <div class="so__t"><p class="k">So im Entwurf</p><p class="so__satz">Der Entwurf setzt keine Cookies. Es geht keine Meldung ab, bevor der Gast etwas gewählt hat.</p>
+      <a class="knopf knopf--hell" href="https://ruedihus.tastystudios.ch/rechtliches.html" target="_blank" rel="noopener"><span>Im Entwurf ansehen</span><i><svg viewBox="0 0 16 16" aria-hidden="true"><path d="M4 12 12 4M5.5 4H12v6.5"/></svg></i></a>
+      <p class="selbst"><span>Selbst nachsehen</span>In Chrome: Rechtsklick › Untersuchen › «Netzwerk», Seite neu laden, das Cookie-Fenster nicht beantworten, im Filter «collect» eingeben. <a href="https://doldenhorn-ruedihus.ch/ruedihus/" target="_blank" rel="noopener">Seite «Ruedihus»</a></p></div>
+  </div>
+</article>
+<article class="hw" id="h-13" data-a>
+  <header class="hw__kopf">
+    <p class="hw__nr"><span>11</span>Gefunden werden</p>
+    <h3>Google liest bei den Anlässen des Ruedihus den Namen des Waldhotels</h3>
+    <p class="hw__klar">Die Anlass-Seiten des Ruedihus tragen bei Google den Namen «Waldhotel Doldenhorn».</p>
+  </header>
+  <div class="hw__heute"><p class="k">So ist es heute</p><div class="buehne buehne--1"><figure class="bl bl--code"><div class="code"><div class="code__k"><b>Titel der Anlass-Seiten, wörtlich</b><span></span></div><pre><span>Altjahr-Ländler-Stubete im Landgasthof Ruedihus - Waldhotel Doldenhorn</span><span>Sylvester im Landgasthof Ruedihus - Waldhotel Doldenhorn</span><span>Kuttel-Woche im Landgasthof Ruedihus - Waldhotel Doldenhorn</span><span>Metzgete im Landgasthof Ruedihus - Waldhotel Doldenhorn</span><span>Weihnachten im Landgasthof Ruedihus - Waldhotel Doldenhorn</span><span>Ruedi-Tag im Landgasthof Ruedihus - Waldhotel Doldenhorn</span><span>Silvester-Abend im Landgasthof Ruedihus - Waldhotel Doldenhorn</span></pre></div><figcaption>Aus dem Quelltext, 16. Oktober 2026.</figcaption></figure></div></div>
+  <div class="hw__info">
+    <section class="karte karte--beleg"><p class="k">Belegt</p><ul><li>Alle elf Anlass-Seiten mit «Ruedihus» im Namen enden im Titel auf «- Waldhotel Doldenhorn».</li><li>Hauptüberschrift (h1): Seite «Ruedihus», Zimmer, Restaurant, Feste und Spa ohne; Events «EVENTS», Jobs «WIR SUCHEN DICH!». Titel und Beschreibung sind auf allen sieben Seiten gesetzt, die Sprachen sind verbunden (hreflang).</li></ul><p class="quelle">Aufgenommen am 16. Oktober 2026 auf doldenhorn-ruedihus.ch/ruedihus</p></section>
+    <section class="karte"><p class="k">Für Ihre Gäste</p><p>Wer «Metzgete Kandersteg» sucht, liest in der Trefferliste den Namen des Waldhotels.</p></section>
+    <section class="karte"><p class="k">Für Ihr Haus</p><p>Ihre eigenen Anlässe erscheinen in der Suche unter dem Namen des Nachbarhauses.</p></section>
+  </div>
+  
+  <div class="so so--ohne">
+    
+    <div class="so__t"><p class="k">So im Entwurf</p><p class="so__satz">Jede Seite des Entwurfs trägt den Namen des Ruedihus im Titel, und jede Seite für Gäste hat eine Hauptüberschrift.</p>
+      
+      <p class="selbst"><span>Selbst nachsehen</span>In Safari: Darstellung › Quelltext einblenden, mit Befehl-F nach «&lt;title&gt;» und «&lt;h1» suchen. <a href="https://doldenhorn-ruedihus.ch/event/kuttel-woche-im-landgasthof-ruedihus-2/" target="_blank" rel="noopener">Kuttel-Woche 2025</a><a href="https://doldenhorn-ruedihus.ch/ruedihus/" target="_blank" rel="noopener">Seite «Ruedihus»</a></p></div>
+  </div>
+</article>
+</section>
+<section class="gut" id="gut"><header class="kopf" data-a><p class="k">Was gut ist</p><h2>Was bleiben soll.</h2></header><ul><li data-a style="--i:0"><b>Die Karten</b> vom März 2026 sind als PDF verlinkt, mit der Geschichte des Hauses, den Stuben und der Herkunft der Produkte.</li><li data-a style="--i:1"><b>Sechs Sprachen</b> für jede Seite, von Deutsch bis Japanisch, und Google weiss, welche Fassung zu welcher gehört.</li><li data-a style="--i:2"><b>Der Weg zur Buchung</b> steht oben auf jeder Seite, und die Zimmer zeigen Preis und Belegung auf einen Blick.</li><li data-a style="--i:0"><b>Das Wichtigste zuerst</b> Telefon, E-Mail, Adresse und die Öffnungszeit von 11:30 bis 21:00 Uhr stehen gleich unter dem ersten Bild.</li><li data-a style="--i:1"><b>Die Wahl</b> im Cookie-Fenster ist fair gestellt: «Ablehnen» ist so gross wie «Akzeptieren».</li><li data-a style="--i:2"><b>Die Verweise</b> auf den Seiten des Ruedihus führen bis auf einen dorthin, wo sie hinführen sollen.</li></ul></section>
+<section class="vorgehen" id="vorgehen">
+  <div class="vorgehen__g">
+    <div><h2 data-a>So haben wir gelesen.</h2><p>Gelesen wurden am 16. Oktober 2026 alle 96 Adressen der Sitemap von doldenhorn-ruedihus.ch, darunter die sieben Seiten des Ruedihus und die gemeinsame Startseite, dazu die Seiten des Ruedihus in Englisch, Französisch, Italienisch, Chinesisch und Japanisch (40 Adressen). Jeder Verweis wurde einzeln geöffnet.</p><p>Die langen Aufnahmen sind echte Bildschirme der heutigen Seite im Safari-Kern eines iPhones (390 Punkte breit), nach «Ablehnen» im Cookie-Fenster und einmal ganz durchgescrollt. Die Ausschnitte sind aus derselben Aufnahme geschnitten. Die Karten sind die PDFs, die heute auf der Website verlinkt sind.</p><p>Die Zahlen der gemeinsamen Teile (Startseite, Veranstaltungen, Verweise) sind dieselben wie in der Analyse des Waldhotel Doldenhorn.</p>
+      <p class="knoepfe"><a class="knopf " href="belege/"><span>Alle Belege und Zahlen</span><i><svg viewBox="0 0 16 16" aria-hidden="true"><path d="M4 12 12 4M5.5 4H12v6.5"/></svg></i></a><a class="knopf " href="https://ruedihus.tastystudios.ch/werkbank/#k8"><span>Zum Angebot</span><i><svg viewBox="0 0 16 16" aria-hidden="true"><path d="M4 12 12 4M5.5 4H12v6.5"/></svg></i></a></p></div>
+    <aside class="grenzen" data-a><p class="k">Was wir nicht geprüft haben</p><ul><li>Gebucht haben wir nicht. Was nach dem Buchungskalender kommt, Preise und Bestätigung, haben wir nicht geprüft.</li><li>Ob Google Analytics die frühe Meldung auswertet und wie das Cookie-Fenster danach steuert, sieht man von aussen nur zum Teil. Das gehört in die Hand Ihrer Datenschutzstelle.</li><li>Welche Telefonnummer das Ruedihus direkt erreicht und welche Zählung der Zimmer gilt, wissen nur Sie. Wir nennen beide Fassungen, ohne zu sagen, welche richtig ist.</li></ul></aside>
+  </div>
+</section>
+</main>
+<footer class="fuss"><p class="fuss__n">Landgasthof Ruedihus</p><p>Potenzialanalyse der heutigen Website doldenhorn-ruedihus.ch · Stand 16. Oktober 2026</p>
+<p class="fuss__k">Erstellt von Tasty Studios für die Familie Maeder. Alle Aufnahmen zeigen die öffentliche Website des Hauses. Nicht die offizielle Seite des Hauses.</p></footer>
+<script>(function(){
+if (location.hash === '') scrollTo(0, 0);
+var el=[].slice.call(document.querySelectorAll('[data-a]'));
+if(!('IntersectionObserver' in window)){el.forEach(function(x){x.classList.add('da')});return}
+var io=new IntersectionObserver(function(es){es.forEach(function(x){if(x.isIntersecting){io.unobserve(x.target);x.target.classList.add('da')}})},{rootMargin:'0px 0px -8% 0px'});
+el.forEach(function(x){io.observe(x)})})();</script>
+<script>/* ZUR WERKBANK 18.10.2026 (Werkbank-Chat Ruedihus) · Robert ~23:00, alle vier Häuser: «… in jeder Sache irgendwie einen Button, dass ich zurückkomme
+   zur Werkbank, wenn ich von der Werkbank dahin gekommen bin. Außer bei der Website.» Die Werkbank hängt beim Verlassen ?wb=<Höhe> an den Link.
+   Hier: steht wb in der Adresse (oder kam man in diesem Fenster schon so herein), erscheint unten links «Zurück zur Werkbank»; der Knopf öffnet die
+   Werkbank auf genau dieser Höhe (?y=). Ohne wb bleibt die Seite wie bisher. Wird beim Zusammenstellen für online in die Seiten gehängt
+   (_werkzeuge/online/stell_ruedihus.py), nicht in die Website und nicht in die Werkbank selbst. */
+(function () {
+  try {
+    var q = new URLSearchParams(location.search), wb = q.get('wb'), K = 'wb-zurueck';
+    if (wb !== null && /^\d+$/.test(wb)) {
+      var ref = document.referrer, o = '';
+      try { if (ref && /\/werkbank\//.test(new URL(ref).pathname)) o = new URL(ref).origin; } catch (e) {}
+      sessionStorage.setItem(K, JSON.stringify({ y: +wb, o: o || (sessionStorage.getItem(K) ? JSON.parse(sessionStorage.getItem(K)).o : '') }));
+      q.delete('wb'); history.replaceState(history.state, '', location.pathname + (q.toString() ? '?' + q : '') + location.hash);
+    }
+    var d = JSON.parse(sessionStorage.getItem(K) || 'null');
+    if (!d) return;
+    var basis = d.o || (/tastystudios\.ch$/.test(location.hostname) && !/-analyse\./.test(location.hostname) || /^(localhost|127\.0\.0\.1)$/.test(location.hostname) ? location.origin : 'https://ruedihus.tastystudios.ch');
+    var ziel = basis + '/werkbank/?y=' + d.y;
+    /* Endprüfung 19.10.2026: auch der Eintrag «Zur Werkbank» in der Leiste der Werkzeuge (Link auf /werkbank/ ohne Stelle) tut dasselbe wie der Knopf:
+       Tab schliessen, wenn er aus der Werkbank geöffnet wurde, sonst die Werkbank auf der Höhe öffnen. */
+    function zurueck(ev) {
+      var o = null; try { o = window.opener; } catch (e) {}
+      ev.preventDefault();
+      if (o && !o.closed) { try { o.focus(); } catch (e) {} window.close(); setTimeout(function () { if (!window.closed) location.href = ziel; }, 400); }
+      else location.href = ziel;
+    }
+    document.addEventListener('click', function (ev) {
+      var l = ev.target && ev.target.closest && ev.target.closest('a[href]'); if (!l || l.id === 'zur-werkbank' || ev.metaKey || ev.ctrlKey || ev.shiftKey) return;
+      var u; try { u = new URL(l.getAttribute('href'), location.href); } catch (e) { return; }
+      if (u.hash || u.searchParams.has('y') || !/\/werkbank\/(?:index\.html)?$/.test(u.pathname)) return;
+      zurueck(ev);
+    }, true);
+    function setz() {
+      if (document.getElementById('zur-werkbank')) return;
+      var st = document.createElement('style');
+      st.textContent = '#zur-werkbank{position:fixed;left:max(16px,env(safe-area-inset-left));bottom:max(16px,env(safe-area-inset-bottom));z-index:2147483000;display:inline-flex;align-items:center;gap:12px;'
+        + 'padding:7px 18px 7px 7px;border-radius:999px;text-decoration:none;font:600 11.5px/1 ui-sans-serif,system-ui,-apple-system,sans-serif;letter-spacing:.14em;text-transform:uppercase;'
+        + 'color:#fbf5ea;background:linear-gradient(180deg,#4a2f18,#321f10 60%,#1f1209);box-shadow:inset 0 1px 0 rgba(255,255,255,.16),0 0 0 1px rgba(201,133,67,.45),0 14px 24px -12px rgba(0,0,0,.6);'
+        + 'transition:transform .25s cubic-bezier(.2,.8,.2,1)}#zur-werkbank:hover{transform:translateY(-2px)}#zur-werkbank:active{transform:translateY(0) scale(.98)}'
+        + '#zur-werkbank i{display:grid;place-items:center;width:30px;height:30px;border-radius:50%;background:linear-gradient(180deg,#f3cd94,#c98543);color:#1f1209;box-shadow:inset 0 1px 0 rgba(255,255,255,.5)}'
+        + '#zur-werkbank svg{width:13px;height:13px;fill:none;stroke:currentColor;stroke-width:1.8;stroke-linecap:round;stroke-linejoin:round}'
+        + '@media print{#zur-werkbank{display:none}}';
+      document.head.appendChild(st);
+      var a = document.createElement('a');
+      a.id = 'zur-werkbank'; a.href = ziel; a.setAttribute('aria-label', 'Zurück zur Werkbank, an die Stelle, an der Sie sie verlassen haben');
+      a.innerHTML = '<i><svg viewBox="0 0 16 16" aria-hidden="true"><path d="M12 8H4M7.5 4.5 4 8l3.5 3.5"/></svg></i><span>Zurück zur Werkbank</span>';
+      /* Robert 19.10.2026 01:18: Werkzeuge und Beigaben öffnen in einem neuen Tab; «Zurück zur Werkbank» schliesst diesen Tab wieder,
+         die Werkbank steht im ersten Tab noch genau da, wo man sie verlassen hat. Geht das Schliessen nicht, öffnet der Link die Werkbank auf der Höhe. */
+      a.addEventListener('click', zurueck);
+      document.body.appendChild(a);
+      /* Endprüfung 19.10.2026: in Werkzeugen mit Leiste links (Schreibtisch, Tafel, Besucherbuch, Werkstatt …) lag der Knopf über den untersten Einträgen.
+         Steht unten links eine hohe, schmale Leiste am Rand, rückt der Knopf rechts daneben (Angabe data-neben/data-luft am alten Skript gilt zuerst). */
+      var t = document.querySelector('script[data-zw][data-neben]'), luft = t ? (+t.getAttribute('data-luft') || 24) : 24;
+      function leiste() {
+        if (t) { var n = document.querySelector(t.getAttribute('data-neben')); if (n && n.offsetParent !== null) return n; }
+        a.style.visibility = 'hidden';
+        var e = null, l = document.elementsFromPoint(24, innerHeight - 30);
+        for (var i = 0; i < l.length; i++) { var r = l[i].getBoundingClientRect(); if (l[i] === document.body || l[i] === document.documentElement) continue;
+          if (r.left <= 4 && r.width > 120 && r.width < innerWidth * .45 && r.height > innerHeight * .5) { e = l[i]; } }
+        a.style.visibility = ''; return e;
+      }
+      function lage() { var e = innerWidth > 700 ? leiste() : null, r = e && e.getBoundingClientRect();
+        a.style.left = r && r.right > 0 && r.right < innerWidth * .5 ? Math.round(r.right + luft) + 'px' : ''; }
+      lage(); addEventListener('resize', lage); addEventListener('load', lage); setTimeout(lage, 1500); setTimeout(lage, 4000);
+    }
+    if (document.body) setz(); else document.addEventListener('DOMContentLoaded', setz);
+  } catch (e) {}
+})();
+</script></body></html>

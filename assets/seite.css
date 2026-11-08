@@ -1,0 +1,368 @@
+/* Potenzialanalyse Landgasthof Ruedihus · «Die Karte des Hauses» · 16.10.2026
+   Gesetzt wie die Karte der Chäs- und Wystube: weisses Blatt, Zeichen in Gold, Rubriken, Zeilen mit Punktführung.
+   Farben aus dem Haus (Entwurf Ruedihus, gemessen): Russ, Holz, Balken, Gold des Zeichens, Papier, Tinte, Geranie nur für die Kreise.
+   Bewegung: Weg von unten am Scrollen, Zoom im Bild, Überschriften aus dem Schlitz. Kein Warten, kein Überschwingen, nichts aus opacity 0. */
+@font-face{font-family:'Gelasio';font-weight:400;font-display:block;src:url('fonts/gelasio-400.woff2') format('woff2')}
+@font-face{font-family:'Gelasio';font-weight:500;font-display:block;src:url('fonts/gelasio-500.woff2') format('woff2')}
+@font-face{font-family:'Gelasio';font-weight:700;font-display:block;src:url('fonts/gelasio-700.woff2') format('woff2')}
+@font-face{font-family:'Instrument Sans';font-weight:400 600;font-display:swap;src:url('fonts/InstrumentSans-normal-400_600.woff2') format('woff2')}
+@font-face{font-family:'DM Mono';font-weight:400;font-display:swap;src:url('fonts/DMMono-normal-400.woff2') format('woff2')}
+@font-face{font-family:'DM Mono';font-weight:500;font-display:swap;src:url('fonts/DMMono-normal-500.woff2') format('woff2')}
+@font-face{font-family:'Sans Ersatz';src:local('Arial');size-adjust:99%}
+
+:root{
+  --tief:#170d06; --russ:#1f1209; --holz:#321f10; --balken:#6d431f; --kerze:#c98543;
+  --gold:#a98245; --gold-hell:#d6b47a; --gold-linie:rgba(169,130,69,.55);
+  --papier:#fbf6ec; --blatt:#fffdf8; --leinen:#f1e7d6; --tinte:#2a1a0e; --tinte-2:#5d4a39; --tinte-3:#8a7663;
+  --rot:#c42e13;
+  --titel:'Gelasio',Georgia,'Times New Roman',serif;
+  --sans:'Instrument Sans','Sans Ersatz',system-ui,-apple-system,'Segoe UI',sans-serif;
+  --mono:'DM Mono',ui-monospace,'SF Mono',Menlo,monospace;
+  --rand:clamp(18px,4.4vw,72px); --max:1240px;
+  --ein:cubic-bezier(.16,1,.3,1);
+}
+*{box-sizing:border-box}
+html{background:var(--papier);-webkit-text-size-adjust:100%;scroll-padding-top:84px}
+body{margin:0;background:transparent;color:var(--tinte);font:400 17px/1.62 var(--sans);-webkit-font-smoothing:antialiased;overflow-x:clip}
+img{display:block;max-width:100%;height:auto;background:center/cover no-repeat}
+a{color:inherit}
+h1,h2,h3,h4{margin:0;font-weight:500}
+p{margin:0}
+.wrap{max-width:var(--max);margin:0 auto;padding:0 var(--rand)}
+.zeichen{display:block;width:44px;height:auto;color:var(--gold);fill:currentColor}
+.zeichen--gold{color:var(--gold)}
+.zeichen--klein{width:34px;margin:0 auto 18px}
+.zeichen--gross{width:76px}
+code{font:400 .86em/1.4 var(--mono);background:rgba(109,67,31,.08);padding:.08em .32em;border-radius:5px;word-break:break-word}
+
+/* ── Überschriften aus dem Schlitz (Zeilen setzt seite.js; ohne Skript steht die Schrift einfach da) */
+.roll{display:inline}
+.roll .z{display:block;overflow:clip;padding:.06em 0 .12em;margin:-.06em 0 -.12em}
+.roll .z>span{display:block}
+
+/* ── Knopf mit Tiefe und rundem Knauf */
+.knopf{--k1:#fffaf0;--k2:#efe1c6;display:inline-flex;align-items:center;gap:14px;min-height:50px;padding:6px 6px 6px 22px;border-radius:999px;text-decoration:none;
+  font:500 12.5px/1 var(--mono);letter-spacing:.13em;text-transform:uppercase;color:var(--tinte);
+  background:linear-gradient(180deg,var(--k1),var(--k2));box-shadow:inset 0 1px 0 rgba(255,255,255,.9),inset 0 -1px 0 rgba(109,67,31,.22),0 1px 0 rgba(109,67,31,.25),0 8px 20px -10px rgba(50,31,16,.45);
+  transition:transform .5s cubic-bezier(.32,.72,0,1),box-shadow .5s}
+.knopf:hover{transform:translateY(-2px)}
+.knopf:active{transform:translateY(1px) scale(.985)}
+.knopf__knauf{display:grid;place-items:center;width:38px;height:38px;border-radius:50%;background:linear-gradient(180deg,#4a2e17,var(--russ));color:#f4dcae;box-shadow:inset 0 1px 0 rgba(255,220,170,.25),0 2px 6px rgba(0,0,0,.25)}
+.knopf__knauf svg{width:16px;height:16px}
+.knopf--klein{min-height:44px;font-size:11.5px;padding-left:18px}
+.knopf--klein .knopf__knauf{width:32px;height:32px}
+.knopf--gold{--k1:#f0d9a8;--k2:#c9a464}
+
+/* ── Leiste oben: schmale Insel, erscheint nach dem Auftakt, weicht beim Runterscrollen */
+.leiste{position:fixed;top:14px;left:50%;z-index:50;display:flex;align-items:center;gap:4px;padding:6px 8px 6px 8px;border-radius:999px;
+  background:linear-gradient(180deg,#3a2413,var(--russ));box-shadow:inset 0 1px 0 rgba(255,214,160,.18),0 10px 30px -12px rgba(0,0,0,.55);
+  transform:translate(-50%,-90px);transition:transform .7s var(--ein);max-width:calc(100vw - 20px)}
+.leiste.da{transform:translate(-50%,0)}
+.leiste a{display:block;padding:9px 12px;border-radius:999px;color:#ecd9b6;text-decoration:none;font:500 11px/1 var(--mono);letter-spacing:.13em;text-transform:uppercase;white-space:nowrap;position:relative}
+.leiste a::after{content:'';position:absolute;left:12px;right:12px;bottom:4px;height:1px;background:var(--gold-hell);transform:scaleX(0);transform-origin:left;transition:transform .5s var(--ein)}
+.leiste a:hover::after,.leiste a.akt::after{transform:scaleX(1)}
+.leiste__z{padding:4px 8px!important}
+.leiste__z .zeichen{width:22px;color:var(--gold-hell)}
+.leiste__belege{background:linear-gradient(180deg,#e9cf98,#b98f4f);color:var(--russ)!important}
+.leiste__belege::after{display:none}
+
+/* ── Auftakt: das Haus in voller Farbe, Block oben rechts wie auf der Hauptseite des Entwurfs, Platte unten */
+.auftakt{position:relative;min-height:max(100svh,620px);display:flex;flex-direction:column;justify-content:space-between;padding:clamp(70px,9vh,110px) var(--rand) clamp(22px,4vh,44px);color:#fbf1df;isolation:isolate;background:var(--russ)}
+.auftakt__foto{position:absolute;inset:0;z-index:-1}
+.auftakt__foto img{width:100%;height:100%;object-fit:cover;object-position:50% 60%}
+.auftakt::after{content:'';position:absolute;inset:0;z-index:-1;pointer-events:none;
+  background:radial-gradient(70% 62% at 82% 22%,rgba(16,9,4,.62),rgba(16,9,4,0) 72%),linear-gradient(0deg,rgba(16,9,4,.42),rgba(16,9,4,0) 28%)}
+.auftakt__block{position:relative;align-self:flex-end;max-width:620px;text-align:right;display:flex;flex-direction:column;align-items:flex-end}
+.auftakt__block::before{content:'';position:absolute;z-index:-1;inset:-18% -16% -22% -24%;pointer-events:none;background:radial-gradient(closest-side,rgba(14,8,3,.82),rgba(14,8,3,.68) 55%,rgba(14,8,3,0));}
+.auftakt__block .zeichen{margin-bottom:16px;color:#d9b97c;filter:drop-shadow(0 2px 10px rgba(0,0,0,.35))}
+.auftakt h1{font:700 clamp(2.5rem,5.6vw,5.1rem)/1.04 var(--titel);letter-spacing:.035em;text-transform:uppercase;text-shadow:0 2px 24px rgba(0,0,0,.35)}
+.auftakt h1 .roll{display:block}
+.auftakt__ort{margin-top:14px;font:500 13px/1 var(--mono);letter-spacing:.24em;text-transform:uppercase;
+  background:linear-gradient(90deg,#f3dba6,#c99c55 55%,#f0d49a);-webkit-background-clip:text;background-clip:text;color:transparent}
+.auftakt__satz{margin-top:18px;font:400 clamp(1.12rem,1.6vw,1.36rem)/1.45 var(--titel);max-width:30ch;text-shadow:0 1px 16px rgba(0,0,0,.4)}
+.auftakt__zahlen{flex:1 1 100%;margin:2px 0 2px;padding:4px 10px 2px;display:flex;flex-wrap:wrap;justify-content:center;gap:6px 0;font:400 11px/1 var(--mono);letter-spacing:.14em;text-transform:uppercase;color:#ead6b2}
+.auftakt__zahlen span+span::before{content:'·';margin:0 10px;color:var(--gold-hell)}
+.platte{align-self:center;display:flex;flex-wrap:wrap;align-items:stretch;gap:6px;padding:8px;border-radius:30px;max-width:1080px;width:100%;
+  background:linear-gradient(180deg,#4a2c15,#2b190b 60%,#21130a);box-shadow:inset 0 1px 0 rgba(255,214,160,.22),inset 0 -1px 0 rgba(0,0,0,.4),0 18px 40px -16px rgba(0,0,0,.6)}
+.platte__r{flex:1 1 0;display:flex;flex-direction:column;justify-content:center;gap:5px;padding:12px 18px;border-radius:22px;text-decoration:none;
+  background:linear-gradient(180deg,rgba(0,0,0,.22),rgba(0,0,0,.08));box-shadow:inset 0 2px 5px rgba(0,0,0,.35),inset 0 -1px 0 rgba(255,214,160,.08)}
+.platte__r b{font:500 17px/1.15 var(--titel);color:#fbeed5}
+.platte__r span{font:400 10.5px/1 var(--mono);letter-spacing:.14em;text-transform:uppercase;color:var(--gold-hell)}
+.platte__knopf{flex:none;align-self:center;margin-left:4px}
+
+/* ── Die Karte: weisses Blatt mit doppeltem Goldrand, zwei Spalten wie die Karte der Chäs- und Wystube */
+.karte{position:relative;z-index:1;background:var(--papier);padding:clamp(64px,8vw,120px) var(--rand)}
+.karte__blatt{max-width:1180px;margin:0 auto;background:var(--blatt);border-radius:8px;padding:clamp(28px,5vw,70px) clamp(22px,5vw,76px);
+  box-shadow:0 0 0 1px var(--gold-linie),0 0 0 7px var(--blatt),0 0 0 8px var(--gold-linie),0 40px 70px -40px rgba(60,35,15,.35)}
+.karte__kopf{text-align:center;max-width:680px;margin:0 auto clamp(30px,4vw,54px)}
+.karte__kopf .zeichen{width:58px;margin:0 auto 18px}
+.karte__kopf h2,.rubrik__kopf h2,.gut__kopf h2,.vorgehen h2{font:500 clamp(2rem,3.7vw,3.3rem)/1.1 var(--titel);letter-spacing:-.005em}
+.karte__kopf p{margin-top:16px;color:var(--tinte-2);font-size:17px}
+.karte__spalten{display:grid;grid-template-columns:1fr 1fr;gap:0 clamp(28px,5vw,72px)}
+.karte__rubrik{padding:22px 0 26px;border-top:1px solid var(--gold-linie)}
+.karte__rubrik h3{font:700 15px/1.2 var(--sans);letter-spacing:.14em;text-transform:uppercase}
+.karte__rubrik h3 a{text-decoration:none}
+.karte__rubrik>p{margin-top:4px;font-size:14px;color:var(--tinte-3)}
+.karte__rubrik ul{list-style:none;margin:12px 0 0;padding:0}
+.kz{display:flex;align-items:baseline;gap:10px;padding:9px 0;text-decoration:none;border-bottom:1px dotted rgba(109,67,31,.0)}
+.kz__titel{font:500 16.5px/1.35 var(--titel);flex:0 1 auto}
+.kz:hover .kz__titel{color:var(--balken)}
+.punkte{flex:1 1 24px;min-width:24px;align-self:flex-end;margin-bottom:.42em;border-bottom:2px dotted rgba(109,67,31,.42);height:0}
+.kz__seite,.hw__seite{flex:none;font:500 11px/1.2 var(--mono);letter-spacing:.11em;text-transform:uppercase;color:var(--balken);max-width:13em;text-align:right}
+.nr{flex:none;display:inline-grid;place-items:center;width:28px;height:28px;border-radius:50%;border:2px solid var(--rot);color:var(--rot);font:500 13px/1 var(--mono);transform:translateY(1px)}
+.karte__fuss{margin:22px auto 0;max-width:720px;text-align:center;font-size:14px;color:var(--tinte-3)}
+
+/* ── Rubrik */
+.rubrik{position:relative;z-index:1;padding:clamp(70px,8vw,120px) 0 clamp(64px,7vw,104px)}
+.rubrik--0{background:var(--papier)}
+.rubrik--1{background:var(--leinen)}
+.rubrik__kopf{text-align:center;max-width:700px;margin:0 auto clamp(30px,4vw,56px)}
+.rubrik__kopf .zeichen{width:40px}
+.rubrik__kopf p{margin-top:12px;color:var(--tinte-2)}
+
+/* ── Hinweis: Zeile wie auf der Karte, darunter Text und Beleg nebeneinander */
+.hw{padding:clamp(26px,3vw,40px) 0 clamp(38px,4vw,56px);border-top:1px solid var(--gold-linie)}
+.hw+.hw{margin-top:6px}
+.hw__zeile{display:flex;align-items:baseline;gap:14px}
+.hw__zeile .nr{width:34px;height:34px;font-size:15px}
+.hw__zeile h3{font:500 clamp(1.3rem,2.05vw,1.78rem)/1.22 var(--titel);flex:0 1 auto;max-width:46ch}
+.hw__zeile .hw__seite{display:block;margin-top:8px;text-align:left;max-width:none}
+.hw__zeile .punkte{margin-bottom:.5em}
+.hw__grid{display:grid;grid-template-columns:minmax(0,.82fr) minmax(0,1.18fr);gap:clamp(24px,3.4vw,52px);margin-top:clamp(18px,2.2vw,28px);align-items:start}
+.hw__kurz{font-size:17.5px;line-height:1.62}
+.hw__tun{margin-top:16px;padding:14px 16px;border-left:2px solid var(--gold);background:rgba(169,130,69,.07);border-radius:0 12px 12px 0;font-size:15.5px}
+.hw__tun span{display:block;font:500 10.5px/1 var(--mono);letter-spacing:.14em;text-transform:uppercase;color:var(--balken);margin-bottom:7px}
+.hw__knoepfe{margin-top:18px;display:flex;flex-wrap:wrap;gap:10px}
+.genau{margin-top:14px}
+.genau summary{display:inline-flex;align-items:center;gap:8px;cursor:pointer;list-style:none;font:500 11px/1 var(--mono);letter-spacing:.13em;text-transform:uppercase;color:var(--balken);padding:8px 0}
+.genau summary::-webkit-details-marker{display:none}
+.genau summary::after{content:'';width:7px;height:7px;border-right:1.6px solid currentColor;border-bottom:1.6px solid currentColor;transform:rotate(45deg) translateY(-2px);transition:transform .4s var(--ein)}
+.genau[open] summary::after{transform:rotate(225deg) translateY(-1px)}
+.genau__inhalt{padding:6px 0 0;font-size:14.5px;line-height:1.58;color:var(--tinte-2)}
+.genau__inhalt ul{margin:0;padding-left:18px}
+.genau__inhalt li+li{margin-top:8px}
+.genau__selbst{margin-top:10px}
+.genau__links{margin-top:10px;display:flex;flex-wrap:wrap;gap:6px 14px}
+.genau__links a{display:inline-flex;align-items:center;gap:4px;color:var(--balken);text-underline-offset:3px}
+.genau__links svg{width:12px;height:12px}
+
+/* ── Karussell der Belege: Band fährt, nichts blendet */
+.kar{position:relative}
+.kar__fenster{overflow:clip;border-radius:22px}
+.kar__band{display:flex;align-items:stretch;transition:transform .8s cubic-bezier(.32,.72,0,1)}
+.kar__blatt{flex:0 0 100%;min-width:0;display:flex;flex-direction:column;justify-content:center}
+.kar__nav{display:flex;align-items:center;justify-content:center;gap:14px;margin-top:12px}
+.kar__pf{width:40px;height:40px;border-radius:50%;border:0;cursor:pointer;display:grid;place-items:center;color:var(--tinte);
+  background:linear-gradient(180deg,#fffaf0,#ead9b9);box-shadow:inset 0 1px 0 #fff,0 1px 0 rgba(109,67,31,.3),0 6px 14px -8px rgba(50,31,16,.5);transition:transform .4s cubic-bezier(.32,.72,0,1)}
+.kar__pf:active{transform:scale(.94)}
+.kar__pf svg{width:16px;height:16px}
+.kar__stand{font:400 11.5px/1.3 var(--mono);letter-spacing:.1em;text-transform:uppercase;color:var(--tinte-2);min-width:16em;text-align:center}
+.kar__stand b{font-weight:500;color:var(--tinte)}
+
+/* ── Die Stelle gross, daneben die ganze Seite als schmale Bahn mit Markierung (Robert 16.10.: Bahnen in Spalten «da erkennt man ja gar nichts») */
+.stelle{display:flex;gap:clamp(14px,2vw,24px);align-items:flex-start;justify-content:center;padding:18px;border-radius:22px;background:var(--blatt);
+  box-shadow:0 0 0 1px var(--gold-linie),0 0 0 6px var(--blatt),0 0 0 7px var(--gold-linie),0 24px 40px -28px rgba(60,35,15,.4);margin:8px}
+.stelle__seite{flex:none;display:flex;flex-direction:column;align-items:center;gap:8px;padding-top:4px}
+.stelle__lbl{font:500 9.5px/1 var(--mono);letter-spacing:.14em;text-transform:uppercase;color:var(--tinte-3);writing-mode:horizontal-tb;white-space:nowrap}
+.stelle__bahn{position:relative;height:var(--sh,440px);aspect-ratio:var(--r);min-width:22px;border-radius:4px;overflow:clip;background:#fff;box-shadow:0 0 0 1px rgba(109,67,31,.28)}
+.stelle__bahn img{width:100%;height:100%;object-fit:fill}
+.stelle__marke{position:absolute;left:0;right:0;top:calc(var(--y)*100%);height:max(10px,calc(var(--h)*100%));border:2px solid var(--rot);border-radius:3px;background:rgba(196,46,19,.14);transition:top .6s var(--ein)}
+.stelle__aus{flex:0 1 520px;min-width:0;margin:0;display:flex;flex-direction:column;gap:10px}
+.stelle__adresse{display:flex;align-items:center;justify-content:center;gap:6px;padding:8px 14px;border-radius:12px;background:#efe8dc;color:#3b3029;font:400 13px/1.2 var(--sans);text-decoration:none;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.stelle__adresse svg{flex:none;width:12px;height:12px;color:#7d6c5e}
+.stelle__bild{border-radius:14px;overflow:clip;aspect-ratio:390/330;background:#fff;box-shadow:0 0 0 1px rgba(109,67,31,.18),0 16px 30px -18px rgba(60,35,15,.45)}
+.stelle__bild img{width:100%;height:100%;object-fit:cover}
+.stelle__aus figcaption{font-size:13px;line-height:1.45;color:var(--tinte-2);text-align:center}
+.stelle__reihe{display:flex;gap:8px;justify-content:center}
+.stelle__reihe button{width:38px;height:38px;border-radius:50%;border:2px solid var(--rot);background:#fff;color:var(--rot);font:500 13px/1 var(--mono);cursor:pointer;transition:background .3s,color .3s}
+.stelle__reihe button.akt{background:var(--rot);color:#fff}
+
+/* ── Karte und Website im Goldrahmen, zwei gleiche Spalten */
+.vgl{display:grid;grid-template-columns:1fr 1fr;gap:14px;padding:16px;border-radius:22px;background:var(--blatt);
+  box-shadow:0 0 0 1px var(--gold-linie),0 0 0 6px var(--blatt),0 0 0 7px var(--gold-linie),0 24px 40px -28px rgba(60,35,15,.4);margin:8px}
+.vgl--vergleich{grid-template-columns:1fr}
+.vgl--vergleich .teil__rahmen{height:auto;padding:8px;display:flex;justify-content:center}
+.vgl--vergleich .teil__rahmen img{width:auto;max-width:100%;height:auto;max-height:250px}
+.vgl--vergleich .teil figcaption{display:flex;justify-content:space-between;gap:12px;align-items:baseline}
+.vgl--folge{grid-template-columns:1fr auto 1fr;align-items:center}
+.vgl--code{grid-template-columns:1fr;background:transparent;box-shadow:none;padding:0;margin:0}
+.vgl__pfeil{display:grid;place-items:center;width:34px;height:34px;border-radius:50%;background:var(--russ);color:#f4dcae}
+.vgl__pfeil svg{width:15px;height:15px}
+.teil{margin:0;display:flex;flex-direction:column;gap:8px;min-width:0}
+.teil__rahmen{height:clamp(220px,25vw,330px);border-radius:12px;overflow:clip;background:#fff;display:grid;place-items:center;box-shadow:0 0 0 1px rgba(109,67,31,.16)}
+.teil__rahmen img{width:100%;height:100%;object-fit:contain}
+.teil figcaption{font-size:13px;line-height:1.45;color:var(--tinte-2)}
+.teil figcaption a{display:inline-flex;align-items:center;gap:4px;flex:none;font:500 10.5px/1.4 var(--mono);letter-spacing:.1em;text-transform:uppercase;color:var(--balken);text-underline-offset:3px}
+.teil figcaption a svg{width:11px;height:11px}
+.vgl--folge .teil__rahmen{height:clamp(300px,34vw,440px)}
+.vgl--folge .teil__rahmen img{object-fit:contain;object-position:top}
+
+/* ── Quelltext und Abfragen, wörtlich */
+.code{margin:0;border-radius:18px;background:#1b130d;color:#efe2cc;overflow:hidden;box-shadow:0 18px 36px -22px rgba(0,0,0,.6);min-width:0}
+.code__kopf{display:flex;align-items:center;gap:6px;padding:11px 14px;background:#261a10;font:500 11px/1 var(--mono);letter-spacing:.08em;color:#cdb38a}
+.code__kopf i{width:9px;height:9px;border-radius:50%;background:#4a3726}
+.code__kopf span{margin-left:8px}
+.code pre{margin:0;padding:16px 18px;font:400 12.5px/1.75 var(--mono);white-space:pre-wrap;word-break:break-word;color:#f2e6d2}
+.code figcaption{padding:0 18px 14px;font-size:12.5px;color:#bfa685}
+
+/* ── Was das für Sie bedeutet: schmale Karten, dunkel auf Hell */
+.bed{margin-top:18px}
+.bed__titel{font:500 11px/1 var(--mono);letter-spacing:.15em;text-transform:uppercase;color:var(--balken);margin-bottom:12px}
+.bed__reihe{display:grid;grid-template-columns:1fr;gap:8px}
+.bed__k{padding:13px 16px 14px;border-radius:16px;background:linear-gradient(180deg,#3a2414,#26170b);color:#f1e2c8;box-shadow:inset 0 1px 0 rgba(255,214,160,.14),0 14px 26px -18px rgba(30,15,5,.7)}
+.bed__kopf{display:flex;align-items:center;gap:9px;font:500 10.5px/1 var(--mono);letter-spacing:.15em;text-transform:uppercase;color:var(--gold-hell)}
+.bed__kopf i{display:grid;place-items:center;width:26px;height:26px;border-radius:50%;border:1px solid rgba(214,180,122,.5)}
+.bed__kopf svg{width:14px;height:14px}
+.bed__k p{margin-top:7px;font-size:14px;line-height:1.5}
+
+/* ── Rubrik-Ende: zwei Kästen wie «Das Konzept» auf der Karte */
+.schluss{display:grid;grid-template-columns:1fr 1fr;gap:16px;margin-top:clamp(24px,3vw,40px)}
+.schluss__k{padding:22px 24px;border-radius:20px}
+.schluss__k h4{font:500 11px/1 var(--mono);letter-spacing:.15em;text-transform:uppercase;margin-bottom:12px}
+.schluss__k ul{margin:0;padding-left:18px;font-size:15px;line-height:1.55}
+.schluss__k li+li{margin-top:6px}
+.schluss__k--hell{background:var(--blatt);box-shadow:0 0 0 1px var(--tinte)}
+.schluss__k--hell h4{color:var(--balken)}
+.schluss__k--dunkel{background:linear-gradient(180deg,#3a2414,#26170b);color:#f1e2c8}
+.schluss__k--dunkel h4{color:var(--gold-hell)}
+
+/* ── Fenster mit der Chronik des Hauses: Bild steht still, die Seite zieht darüber (Bauart «ohne Beschneiden») */
+.fenster{position:relative;height:min(64vh,620px);display:grid;place-items:center;padding:0 var(--rand);text-align:center;color:#fff7e8}
+.fenster__bild{position:fixed;inset:0;z-index:-1;display:none;background:var(--russ)}
+.fenster.nah .fenster__bild{display:block}
+.fenster__bild img{width:100%;height:100%;object-fit:cover}
+.fenster__satz{position:relative;max-width:820px}
+.fenster__satz::before{content:'';position:absolute;inset:-26% -22%;z-index:-1;background:radial-gradient(closest-side,rgba(18,10,4,.55),rgba(18,10,4,.3) 55%,rgba(18,10,4,0));pointer-events:none}
+.fenster__jahr{display:block;font:500 clamp(4.2rem,9vw,8rem)/1 var(--titel);color:#f0d49c;letter-spacing:.02em;text-shadow:0 2px 30px rgba(0,0,0,.35)}
+.fenster__satz p{margin-top:14px;font:400 clamp(1.15rem,2vw,1.6rem)/1.42 var(--titel);text-shadow:0 1px 18px rgba(0,0,0,.45)}
+.fenster__quelle{display:block;margin-top:16px;font:400 11px/1 var(--mono);letter-spacing:.16em;text-transform:uppercase;color:#e8cf9e}
+
+/* ── Was gut ist: dunkle Stube, Fotos des Hauses */
+.gut{position:relative;z-index:1;background:var(--russ);color:#f3e5cc;padding:clamp(76px,9vw,130px) 0}
+.gut__kopf{text-align:center;max-width:680px;margin:0 auto clamp(30px,4vw,54px)}
+.gut__kopf .zeichen{color:var(--gold-hell)}
+.gut__kopf p{margin-top:12px;color:#d6c09c}
+.gut__raster{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:18px}
+.gut__k{margin:0;border-radius:22px;overflow:clip;background:#2a190c;box-shadow:inset 0 0 0 1px rgba(214,180,122,.18)}
+.gut__bild{aspect-ratio:3/2;overflow:clip}
+.gut__bild img{width:100%;height:100%;object-fit:cover}
+.gut__k figcaption{padding:16px 18px 20px;font-size:15px;line-height:1.55;color:#e4d2b3}
+.gut__k strong{display:block;font:500 19px/1.25 var(--titel);color:#fbeed5;margin-bottom:4px}
+
+/* ── Vorgehen, Grenzen, Fuss */
+.vorgehen{position:relative;z-index:1;background:var(--papier);padding:clamp(70px,8vw,120px) 0}
+.vorgehen__grid{display:grid;grid-template-columns:1.2fr .8fr;gap:clamp(28px,4vw,64px);align-items:start}
+.vorgehen h2{margin-bottom:18px}
+.vorgehen p+p{margin-top:12px}
+.vorgehen__grenzen{padding:24px 26px;border-radius:20px;background:var(--blatt);box-shadow:0 0 0 1px var(--gold-linie),0 0 0 6px var(--blatt),0 0 0 7px var(--gold-linie)}
+.vorgehen__grenzen h4{font:500 11px/1 var(--mono);letter-spacing:.15em;text-transform:uppercase;color:var(--balken);margin-bottom:12px}
+.vorgehen__grenzen ul{margin:0;padding-left:18px;font-size:15px}
+.vorgehen__grenzen li+li{margin-top:8px}
+.fuss{position:relative;z-index:1;background:var(--tief);color:#cdb795;padding:56px 0 46px;text-align:center}
+.fuss__innen{display:flex;flex-direction:column;align-items:center;gap:8px}
+.fuss .zeichen{width:46px;color:var(--gold-hell);margin-bottom:8px}
+.fuss__name{font:700 20px/1.2 var(--titel);letter-spacing:.08em;text-transform:uppercase;color:#f4e3c2}
+.fuss__klein{font-size:12.5px;color:#9c8566;max-width:620px}
+
+/* ── Belege-Seite */
+.belege-seite{background:var(--papier)}
+.belege__kopf{background:var(--russ);color:#f4e5ca;padding:70px 0 44px}
+.belege__kopf .zeichen{width:48px;color:var(--gold-hell);margin-bottom:16px}
+.belege__kopf h1{font:500 clamp(2.2rem,4vw,3.4rem)/1.1 var(--titel)}
+.belege__kopf p{margin-top:12px;max-width:62ch;color:#dcc6a2}
+.belege__kopf p+p{margin-top:22px}
+.beleg{padding:46px 0 10px}
+.beleg h2{font:500 clamp(1.4rem,2.2vw,1.9rem)/1.2 var(--titel)}
+.beleg>p{margin:8px 0 16px;color:var(--tinte-2);max-width:80ch;font-size:15px}
+.tab{overflow-x:auto;border-radius:16px;background:var(--blatt);box-shadow:0 0 0 1px var(--gold-linie)}
+.tab table{border-collapse:collapse;width:100%;font-size:13.5px;line-height:1.45}
+.tab th{text-align:left;font:500 10.5px/1.2 var(--mono);letter-spacing:.12em;text-transform:uppercase;color:var(--balken);padding:12px 14px;border-bottom:1px solid var(--gold-linie);white-space:nowrap}
+.tab td{padding:10px 14px;border-bottom:1px solid rgba(169,130,69,.2);vertical-align:top}
+.tab td a{color:var(--balken);word-break:break-all}
+.tab tr:last-child td{border-bottom:0}
+
+/* ── Bewegung: Weg von unten am Scrollen (deckend vom ersten Bild an), Zoom im Bild, Zeilen aus dem Schlitz */
+@supports (animation-timeline:view()){
+  @media (prefers-reduced-motion:no-preference){
+    .rb{animation:rb-auf linear both;animation-timeline:view();animation-range:entry 0% entry 62%}
+    .gut__bild img,.stelle__bild img{animation:rb-zoom linear both;animation-timeline:view();animation-range:entry 0% cover 48%}
+    .roll .z>span{animation:rb-zeile linear both;animation-timeline:view();animation-range:entry 4% entry 46%}
+    .fenster__satz .roll .z>span{animation-range:entry 30% entry 72%}
+  }
+}
+@keyframes rb-auf{from{transform:translateY(38px);animation-timing-function:cubic-bezier(.16,1,.3,1)}to{transform:none}}
+@keyframes rb-zoom{from{transform:scale(1.07)}to{transform:none}}
+@keyframes rb-zeile{from{transform:translateY(106%);animation-timing-function:cubic-bezier(.16,1,.3,1)}to{transform:none}}
+/* Ersatz für Browser ohne Zeitachse: seite.js setzt .ohne-zeit und .da beim Hereinkommen */
+.ohne-zeit .rb:not(.da){transform:translateY(38px)}
+.ohne-zeit .rb{transition:transform 1.4s var(--ein)}
+.ohne-zeit .roll:not(.da) .z>span{transform:translateY(106%)}
+.ohne-zeit .roll .z>span{transition:transform 1.25s var(--ein)}
+/* Auftakt steht vom ersten Bild an (Briefing 8.2 Nr. 7: Auftakt ausgenommen), auch in einem Fenster im Hintergrund */
+.auftakt .roll .z>span{animation:none!important;transform:none!important}
+@media (prefers-reduced-motion:reduce){*{animation:none!important;transition:none!important}}
+
+/* ── Rechner flach (1366 × 650 und kleiner in der Höhe) */
+@media (max-height:700px) and (min-width:761px){
+  .auftakt__block .zeichen{width:56px;margin-bottom:10px}
+  .auftakt h1{font-size:clamp(2.2rem,4.6vw,4rem)}
+  .auftakt__satz{margin-top:12px}
+}
+
+/* ── Tablet */
+@media (max-width:1060px){
+  .hw__grid{grid-template-columns:minmax(0,1fr);gap:16px}
+  .hw__grid>*,.hw__text>*{min-width:0}
+  .hw__text{display:contents}
+  .hw__kurz{order:1}.hw__tun{order:2;margin:0}.hw__beweis{order:3}.bed{order:4;margin:0}.hw__text .hw__knoepfe{order:5;margin:0}.genau{order:6;margin:0}
+  .platte{flex-wrap:wrap}
+  .platte__r{flex:1 1 40%}
+  .platte__knopf{margin:4px auto 0}
+  .gut__raster{grid-template-columns:repeat(2,minmax(0,1fr))}
+}
+/* ── Handy */
+@media (max-width:760px){
+  body{font-size:16.5px}
+  html{scroll-padding-top:70px}
+  .leiste{top:10px;gap:0;padding:4px;overflow-x:auto;scrollbar-width:none;justify-content:flex-start}
+  .leiste::-webkit-scrollbar{display:none}
+  .leiste a{padding:9px 9px;font-size:10px;letter-spacing:.1em}
+  .auftakt{padding-top:84px}
+  .auftakt__foto img{object-position:50% 40%}
+  .auftakt::after{background:radial-gradient(90% 55% at 70% 18%,rgba(16,9,4,.66),rgba(16,9,4,0) 76%),linear-gradient(0deg,rgba(16,9,4,.5),rgba(16,9,4,0) 32%)}
+  .auftakt__block{align-self:stretch;align-items:flex-end}
+  .auftakt__block::before{inset:-10% calc(-1 * var(--rand)) -14% calc(-1 * var(--rand))}
+  .auftakt__satz{font-size:1.06rem}
+  .auftakt__zahlen{font-size:10px}
+  .platte{border-radius:24px;padding:6px;gap:5px}
+  .platte__r{flex:1 1 calc(50% - 5px);padding:10px 12px;border-radius:18px}
+  .platte__r b{font-size:15px}
+  .platte__knopf{width:100%;justify-content:space-between}
+  .karte__spalten{grid-template-columns:1fr}
+  .kz__seite{display:none}
+  .kz__titel{font-size:16px}
+  .karte__blatt{padding:28px 18px 30px}
+  .hw__zeile{gap:10px}
+  .hw__zeile .nr{width:30px;height:30px;font-size:13px}
+  .stelle{padding:10px;gap:10px;margin:6px}
+  .stelle__aus figcaption{font-size:12px}
+  .stelle__adresse{font-size:11.5px;padding:7px 10px}
+  .vgl,.vgl--folge{grid-template-columns:1fr;margin:6px;padding:12px}
+  .vgl__pfeil{justify-self:center;transform:rotate(90deg)}
+  .teil__rahmen{height:auto;max-height:420px}
+  .vgl--vergleich .teil__rahmen img{max-height:170px}
+  .teil__rahmen img{height:auto}
+  .vgl--folge .teil__rahmen{height:auto}
+  .schluss{grid-template-columns:1fr}
+  .gut__raster{grid-template-columns:1fr}
+  .vorgehen__grid{grid-template-columns:1fr}
+  .fenster{height:min(56svh,520px)}
+  .fenster__satz::before{inset:-18% calc(-1 * var(--rand) + 2px)}
+  .kar__stand{min-width:0;font-size:10.5px}
+  .kar__band{align-items:flex-start}
+  .kar__fenster{transition:height .55s var(--ein)}
+}
+
+/* Robert 18.10.2026 17:10: auf der Schlussseite neben «Alle Belege und Zahlen» der Knopf «Zum Angebot», gleich hoch nebeneinander, am Handy untereinander */
+.hw__knoepfe--schluss{align-items:stretch}
+@media(max-width:560px){.hw__knoepfe--schluss{flex-direction:column;align-items:flex-start}}
